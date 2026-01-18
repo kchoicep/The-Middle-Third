@@ -5,120 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Middle Third</title>
     <style>
-        /* Modern Reset */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: "Helvetica Neue", Arial, sans-serif;
-            background-color: #ffffff;
-            color: #000000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            -webkit-font-smoothing: antialiased;
-        }
+    /* Modern Reset */
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        -webkit-font-smoothing: antialiased;
+    }
 
-        /* Central Layout */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 40px 20px; /* Added vertical padding for mobile breathing room */
-            box-sizing: border-box;
-        }
+    /* Central Layout */
+    .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 40px 20px;
+        box-sizing: border-box;
+    }
 
-        /* Title Styling */
+    /* Title Styling */
+    h1 {
+        font-weight: 400;
+        font-size: 1.4rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    /* Form Styling */
+    .email-div {
+        width: 100%;
+        max-width: 350px;
+        text-align: center;
+    }
+
+    input[type="email"] {
+        width: 100%;
+        padding: 12px 0;
+        border: none;
+        border-bottom: 1px solid #000;
+        outline: none;
+        font-size: 1rem;
+        text-align: center;
+        letter-spacing: 0.1em;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        border-radius: 0;
+        -webkit-appearance: none; /* Fixes iOS input shadows */
+    }
+
+    button {
+        /* Explicitly setting colors to prevent "invisible" text */
+        background-color: transparent;
+        color: #000000 !important; 
+        
+        border: 1px solid #000;
+        padding: 14px 24px;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        /* Fixes for Mobile Browsers */
+        -webkit-appearance: none;
+        border-radius: 0;
+        display: inline-block;
+        width: auto;
+        min-width: 200px; /* Ensures the button has enough volume */
+    }
+
+    /* On mobile, hover states don't exist, but "active" does */
+    button:hover, button:active {
+        background-color: #000000;
+        color: #ffffff !important;
+    }
+
+    /* Footer Details */
+    .details-section {
+        width: 85%; /* Fixed the edge-to-edge issue */
+        max-width: 600px;
+        padding: 60px 0;
+        margin: 0 auto 40px auto;
+        text-align: center;
+        font-size: 0.8rem;
+        line-height: 1.8;
+        letter-spacing: 0.05em;
+        color: #666;
+    }
+
+    .details-section h2 {
+        font-size: 0.85rem;
+        color: #000;
+        margin-bottom: 20px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    /* Small Screen Adjustments */
+    @media (max-width: 480px) {
         h1 {
-            font-weight: 400;
-            font-size: 1.4rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-
-        /* Form Styling */
-        .email-div {
-            width: 100%;
-            max-width: 350px;
-            text-align: center;
-        }
-
-        input[type="email"] {
-            width: 100%;
-            padding: 12px 0;
-            border: none;
-            border-bottom: 1px solid #000;
-            outline: none;
-            font-size: 1rem; /* Slightly larger for mobile tap targets */
-            text-align: center;
-            letter-spacing: 0.1em;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            border-radius: 0; /* Prevents iOS default styling */
-        }
-
-        button {
-            background: none;
-            border: 1px solid #000;
-            padding: 12px 24px;
-            font-size: 0.75rem; /* Increased size to ensure visibility */
+            font-size: 1.1rem;
             letter-spacing: 0.2em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap; /* Keeps text on one line */
-            display: inline-block;
         }
-
-        button:hover {
-            background-color: #000;
-            color: #fff;
+        button {
+            width: 100%; /* Full width button on small screens */
+            font-size: 0.8rem; /* Slightly larger text for mobile readability */
         }
-
-        /* Footer Details */
-        .details-section {
-            width: 90%; /* Using percentage for better mobile scaling */
-            max-width: 600px;
-            padding: 60px 0; /* Vertical padding */
-            margin: 0 auto 40px auto; /* Centers the block and adds bottom margin */
-            text-align: center;
-            font-size: 0.8rem; /* Slightly larger for readability */
-            line-height: 1.8;
-            letter-spacing: 0.05em;
-            color: #666;
-        }
-
-        .details-section h2 {
-            font-size: 0.85rem;
-            color: #000;
-            margin-bottom: 20px;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        /* Mobile Specific Adjustments */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.1rem;
-                letter-spacing: 0.2em;
-            }
-            
-            .details-section {
-                width: 85%; /* Increases the "gutter" on the sides */
-                padding: 40px 0;
-            }
-
-            button {
-                width: 100%; /* Makes button easier to tap on phones */
-                letter-spacing: 0.1em;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
 
