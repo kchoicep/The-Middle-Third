@@ -27,7 +27,8 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            padding: 0 20px;
+            padding: 40px 20px; /* Added vertical padding for mobile breathing room */
+            box-sizing: border-box;
         }
 
         /* Title Styling */
@@ -37,6 +38,7 @@
             letter-spacing: 0.3em;
             text-transform: uppercase;
             margin-bottom: 50px;
+            text-align: center;
         }
 
         /* Form Styling */
@@ -48,26 +50,29 @@
 
         input[type="email"] {
             width: 100%;
-            padding: 10px 0;
+            padding: 12px 0;
             border: none;
             border-bottom: 1px solid #000;
             outline: none;
-            font-size: 0.9rem;
+            font-size: 1rem; /* Slightly larger for mobile tap targets */
             text-align: center;
             letter-spacing: 0.1em;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
+            border-radius: 0; /* Prevents iOS default styling */
         }
 
         button {
             background: none;
             border: 1px solid #000;
-            padding: 10px 30px;
-            font-size: 0.7rem;
+            padding: 12px 24px;
+            font-size: 0.75rem; /* Increased size to ensure visibility */
             letter-spacing: 0.2em;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap; /* Keeps text on one line */
+            display: inline-block;
         }
 
         button:hover {
@@ -77,21 +82,41 @@
 
         /* Footer Details */
         .details-section {
-            width: 100%;
+            width: 90%; /* Using percentage for better mobile scaling */
             max-width: 600px;
-            padding: 60px 20px;
+            padding: 60px 0; /* Vertical padding */
+            margin: 0 auto 40px auto; /* Centers the block and adds bottom margin */
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.8rem; /* Slightly larger for readability */
             line-height: 1.8;
             letter-spacing: 0.05em;
             color: #666;
         }
 
         .details-section h2 {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #000;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Mobile Specific Adjustments */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.1rem;
+                letter-spacing: 0.2em;
+            }
+            
+            .details-section {
+                width: 85%; /* Increases the "gutter" on the sides */
+                padding: 40px 0;
+            }
+
+            button {
+                width: 100%; /* Makes button easier to tap on phones */
+                letter-spacing: 0.1em;
+            }
         }
     </style>
 </head>
@@ -102,7 +127,7 @@
 
         <div class="email-div">
              <form action="https://formspree.io/f/mojjjbrb" method="POST">
-                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="email" name="email" placeholder="EMAIL ADDRESS" required>
                 <button type="submit">Join the Community</button>
             </form>
         </div>
