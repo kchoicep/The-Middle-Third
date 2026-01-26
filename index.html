@@ -19,47 +19,45 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Hero Image - Cinema Letterbox Frame */
-        .hero-image {
+        /* Central Layout */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            height: 45vh;
-            background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
-                              url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop'); 
-            background-size: cover;
-            background-position: center;
+            padding: 40px 20px;
+            box-sizing: border-box;
         }
 
-        /* Logo Container */
-        .logo-container {
-            padding: 60px 20px 20px 20px;
+        /* Title Styling */
+        h1 {
+            font-weight: 400;
+            font-size: 1.4rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 50px;
             text-align: center;
         }
 
-        .logo-container img {
-            max-width: 150px; /* Sharp, minimalist sizing */
-            height: auto;
-            display: inline-block;
-        }
-
-        /* Email Capture Section */
-        .main-content {
+        /* Form Styling */
+        .email-div {
             width: 100%;
-            max-width: 400px;
-            padding: 0 20px 80px 20px;
-            box-sizing: border-box;
+            max-width: 350px;
             text-align: center;
         }
 
         input[type="email"] {
             width: 100%;
-            padding: 15px 0;
+            padding: 12px 0;
             border: none;
             border-bottom: 1px solid #000;
             outline: none;
             font-size: 1rem;
             text-align: center;
             letter-spacing: 0.1em;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-transform: uppercase;
             border-radius: 0;
         }
@@ -67,13 +65,14 @@
         button {
             background: none;
             border: 1px solid #000;
-            padding: 14px 40px;
+            padding: 12px 24px;
             font-size: 0.75rem;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 100%;
+            white-space: nowrap;
+            display: inline-block;
         }
 
         button:hover {
@@ -81,105 +80,71 @@
             color: #fff;
         }
 
-        /* Success Message - Boxed Style from Reference */
+        /* Success Message Box (Reference Image Style) */
         #success-message {
-            display: none;
+            display: none; /* Hidden by default */
             border: 1px solid #000;
-            padding: 40px 20px;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-            line-height: 1.6;
-            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: "Courier New", Courier, monospace; /* Monospace for the "typewriter" look in reference */
+            font-size: 0.9rem;
+            color: #000;
+            line-height: 1.5;
         }
 
-        /* Structured Info Blocks */
-        .concept-section {
-            width: 100%;
-            border-top: 1px solid #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 100px;
-        }
-
-        .info-block {
-            width: 100%;
+        /* Footer Details */
+        .details-section {
+            width: 90%;
             max-width: 600px;
-            padding: 80px 20px;
-            border-bottom: 1px solid #eee;
+            padding: 60px 0;
+            margin: 0 auto 40px auto;
             text-align: center;
-        }
-
-        .info-block:last-child {
-            border-bottom: none;
-        }
-
-        .info-block h3 {
             font-size: 0.8rem;
-            letter-spacing: 0.4em;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+            color: #666;
+        }
+
+        .details-section h2 {
+            font-size: 0.85rem;
+            color: #000;
+            margin-bottom: 20px;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            margin-bottom: 25px;
-            font-weight: 600;
-            display: inline-block;
-            border-bottom: 1px solid #000;
-            padding-bottom: 5px;
         }
 
-        .info-block p {
-            font-size: 0.95rem;
-            line-height: 2;
-            color: #333;
-            max-width: 480px;
-            margin: 0 auto;
-            letter-spacing: 0.01em;
-        }
-
-        /* Mobile Specifics */
         @media (max-width: 480px) {
-            .hero-image { height: 35vh; }
-            .info-block { padding: 60px 25px; }
-            .info-block p { font-size: 0.9rem; }
+            h1 { font-size: 1.1rem; letter-spacing: 0.2em; }
+            .details-section { width: 85%; padding: 40px 0; }
+            button { width: 100%; letter-spacing: 0.1em; }
         }
     </style>
 </head>
 <body>
 
-    <div class="hero-image"></div>
-
-    <div class="logo-container">
-        <img src="logo.png" alt="The Middle Third Logo">
-    </div>
-
     <div class="main-content">
-        <form id="email-form" action="https://formspree.io/f/mojjjbrb" method="POST">
-            <input type="email" name="email" placeholder="ENTER EMAIL ADDRESS" required>
-            <button type="submit" id="submit-btn">Join the Community</button>
-        </form>
-        
-        <div id="success-message">
-            YOU'RE ON THE LIST.<br>
-            WE WILL NOTIFY YOU OF THE FIRST EVENT SOON.
+        <h1>The Middle Third</h1>
+
+        <div class="email-div">
+            <form id="email-form" action="https://formspree.io/f/mojjjbrb" method="POST">
+                <input type="email" name="email" placeholder="EMAIL ADDRESS" required>
+                <button type="submit" id="submit-btn">Join the Community</button>
+            </form>
+            
+            <div id="success-message">
+                You're on the list for the upcoming event.
+            </div>
         </div>
     </div>
 
-    <div class="concept-section">
-        
-        <div class="info-block">
-            <h3>The Space</h3>
-            <p>A cinema-style viewing experience in Madrid. Reserved seats, premium sound, and zero distractions. Designed for those who want to actually watch the game.</p>
-        </div>
-
-        <div class="info-block">
-            <h3>The Atmosphere</h3>
-            <p>The energy of the stadium with the comfort of a lounge. A curated, respectful community of true football fans.</p>
-        </div>
-
-        <div class="info-block">
-            <h3>The Membership</h3>
-            <p>Join as a founding member for priority access to our first viewing event in late March. Priority is given to those on the list.</p>
-        </div>
-
+    <div class="details-section">
+        <h2>Concept Summary</h2>
+        <p>
+            The Middle Third is a new kind of third place for football fans in Madrid: not a bar and not your living room, but a cinema-style space where you watch the biggest matches on the big screen with reserved seats, premium sound, and a respectful, mixed-fan community. It exists for people who love the atmosphere of the stadium, but want the comfort, focus, and safety of a curated community experience.<br><br>
+            Join the community early by leaving your email to become a founding member, help shape the first events, and get priority access to Madrid's first football cinema experience.<br><br>
+            The first event is coming soon - we are planning to host a viewing in late March!<br><br>
+            Keep an eye out for emails from <i>themiddlethirdmadrid</i> for further information once you’ve joined the community.
+        </p>
     </div>
 
     <script>
@@ -199,13 +164,15 @@
             });
 
             if (response.ok) {
-                form.style.display = 'none';
-                successMessage.style.display = 'block';
+                form.style.display = 'none'; // Hide the form
+                successMessage.style.display = 'block'; // Show the success box
             } else {
-                alert("Submission failed. Please try again.");
+                alert("Oops! There was a problem. Please try again.");
                 submitBtn.innerText = "JOIN THE COMMUNITY";
             }
         };
     </script>
+
 </body>
 </html>
+
