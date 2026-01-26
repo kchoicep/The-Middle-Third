@@ -27,11 +27,10 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            padding: 40px 20px;
+            padding: 80px 20px;
             box-sizing: border-box;
         }
 
-        /* Title Styling */
         h1 {
             font-weight: 400;
             font-size: 1.4rem;
@@ -41,7 +40,7 @@
             text-align: center;
         }
 
-        /* Form Styling */
+        /* Form & Success Message */
         .email-div {
             width: 100%;
             max-width: 350px;
@@ -72,7 +71,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
-            display: inline-block;
         }
 
         button:hover {
@@ -80,43 +78,69 @@
             color: #fff;
         }
 
-        /* Success Message Box (Reference Image Style) */
         #success-message {
-            display: none; /* Hidden by default */
+            display: none;
             border: 1px solid #000;
-            padding: 20px;
-            margin-top: 20px;
-            font-family: "Courier New", Courier, monospace; /* Monospace for the "typewriter" look in reference */
-            font-size: 0.9rem;
-            color: #000;
-            line-height: 1.5;
+            padding: 25px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-align: center;
         }
 
-        /* Footer Details */
+        /* NEW VISUALIZATION: Concept Grid */
         .details-section {
             width: 90%;
-            max-width: 600px;
+            max-width: 900px; /* Slightly wider to fit 3 columns */
             padding: 60px 0;
             margin: 0 auto 40px auto;
             text-align: center;
-            font-size: 0.8rem;
-            line-height: 1.8;
-            letter-spacing: 0.05em;
-            color: #666;
         }
 
         .details-section h2 {
             font-size: 0.85rem;
             color: #000;
-            margin-bottom: 20px;
-            letter-spacing: 0.1em;
+            margin-bottom: 40px;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
         }
 
-        @media (max-width: 480px) {
-            h1 { font-size: 1.1rem; letter-spacing: 0.2em; }
-            .details-section { width: 85%; padding: 40px 0; }
-            button { width: 100%; letter-spacing: 0.1em; }
+        .concept-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 50px;
+        }
+
+        .grid-item {
+            text-align: center;
+        }
+
+        .grid-item h3 {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .grid-item p {
+            font-size: 0.75rem;
+            line-height: 1.8;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .concept-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            h1 { font-size: 1.2rem; }
+            .details-section { width: 85%; }
+            button { width: 100%; }
         }
     </style>
 </head>
@@ -132,19 +156,34 @@
             </form>
             
             <div id="success-message">
-                You're on the list for the upcoming event.
+                YOU'RE ON THE LIST FOR THE UPCOMING EVENT.
             </div>
         </div>
     </div>
 
     <div class="details-section">
         <h2>Concept Summary</h2>
-        <p>
-            The Middle Third is a new kind of third place for football fans in Madrid: not a bar and not your living room, but a cinema-style space where you watch the biggest matches on the big screen with reserved seats, premium sound, and a respectful, mixed-fan community. It exists for people who love the atmosphere of the stadium, but want the comfort, focus, and safety of a curated community experience.<br><br>
-            Join the community early by leaving your email to become a founding member, help shape the first events, and get priority access to Madrid's first football cinema experience.<br><br>
-            The first event is coming soon - we are planning to host a viewing in late March!<br><br>
-            Keep an eye out for emails from <i>themiddlethirdmadrid</i> for further information once you’ve joined the community.
-        </p>
+        
+        <div class="concept-grid">
+            <div class="grid-item">
+                <h3>The Space</h3>
+                <p>A cinema-style viewing experience in Madrid. Reserved seats, premium sound, and zero distractions.</p>
+            </div>
+            <div class="grid-item">
+                <h3>The Atmosphere</h3>
+                <p>The energy of the stadium with the comfort of a lounge. A curated, respectful community for true fans.</p>
+            </div>
+            <div class="grid-item">
+                <h3>The Membership</h3>
+                <p>Join as a founding member for priority access to our first viewing event in late March.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; border-top: 1px solid #eee; padding-top: 30px;">
+            <p style="font-size: 0.7rem; color: #999; letter-spacing: 0.05em;">
+                Keep an eye out for emails from <i>themiddlethirdmadrid</i> for further information.
+            </p>
+        </div>
     </div>
 
     <script>
@@ -164,10 +203,10 @@
             });
 
             if (response.ok) {
-                form.style.display = 'none'; // Hide the form
-                successMessage.style.display = 'block'; // Show the success box
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
             } else {
-                alert("Oops! There was a problem. Please try again.");
+                alert("Submission failed. Please try again.");
                 submitBtn.innerText = "JOIN THE COMMUNITY";
             }
         };
