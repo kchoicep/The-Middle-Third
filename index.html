@@ -19,58 +19,67 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Central Layout */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        /* Hero Image - Cinema Letterbox Frame */
+        .hero-image {
             width: 100%;
-            padding: 80px 20px;
-            box-sizing: border-box;
+            height: 45vh;
+            background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
+                              url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
         }
 
-        h1 {
-            font-weight: 400;
-            font-size: 1.4rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 50px;
+        /* Logo Container */
+        .logo-container {
+            padding: 60px 20px 20px 20px;
             text-align: center;
         }
 
-        /* Form & Success Message */
-        .email-div {
+        .logo-container img {
+            max-width: 140px;
+            height: auto;
+            display: inline-block;
+        }
+
+        /* Email Capture Section */
+        .main-content {
             width: 100%;
-            max-width: 350px;
+            max-width: 400px;
+            padding: 0 20px 80px 20px;
+            box-sizing: border-box;
             text-align: center;
         }
 
         input[type="email"] {
             width: 100%;
-            padding: 12px 0;
+            padding: 15px 0;
             border: none;
             border-bottom: 1px solid #000;
             outline: none;
             font-size: 1rem;
             text-align: center;
             letter-spacing: 0.1em;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-transform: uppercase;
             border-radius: 0;
+            background: transparent;
+            color: #000;
         }
 
         button {
-            background: none;
+            background-color: transparent;
             border: 1px solid #000;
-            padding: 12px 24px;
+            padding: 14px 40px;
             font-size: 0.75rem;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.3em;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
-            white-space: nowrap;
+            width: 100%;
+            color: #000; /* Force black text for mobile */
+            -webkit-appearance: none; /* Fix for blank button on iOS */
+            border-radius: 0;
+            display: block;
         }
 
         button:hover {
@@ -78,112 +87,114 @@
             color: #fff;
         }
 
+        /* Success Message Box */
         #success-message {
             display: none;
             border: 1px solid #000;
-            padding: 25px;
+            padding: 40px 20px;
             font-family: "Courier New", Courier, monospace;
             font-size: 0.85rem;
             letter-spacing: 0.05em;
+            line-height: 1.6;
             text-align: center;
         }
 
-        /* NEW VISUALIZATION: Concept Grid */
-        .details-section {
-            width: 90%;
-            max-width: 900px; /* Slightly wider to fit 3 columns */
-            padding: 60px 0;
-            margin: 0 auto 40px auto;
+        /* Structured Info Blocks */
+        .concept-section {
+            width: 100%;
+            border-top: 1px solid #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 100px;
+        }
+
+        .info-block {
+            width: 100%;
+            max-width: 600px;
+            padding: 80px 20px;
+            border-bottom: 1px solid #eee;
             text-align: center;
         }
 
-        .details-section h2 {
-            font-size: 0.85rem;
-            color: #000;
-            margin-bottom: 40px;
-            letter-spacing: 0.15em;
+        .info-block:last-child {
+            border-bottom: none;
+        }
+
+        .info-block h3 {
+            font-size: 0.8rem;
+            letter-spacing: 0.4em;
             text-transform: uppercase;
+            margin-bottom: 25px;
+            font-weight: 600;
+            display: inline-block;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
         }
 
-        .concept-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 40px;
-            border-top: 1px solid #eee;
-            padding-top: 50px;
+        .info-block p {
+            font-size: 0.95rem;
+            line-height: 2;
+            color: #333;
+            max-width: 480px;
+            margin: 0 auto;
+            letter-spacing: 0.01em;
         }
 
-        .grid-item {
-            text-align: center;
-        }
-
-        .grid-item h3 {
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            color: #000;
-        }
-
-        .grid-item p {
-            font-size: 0.75rem;
-            line-height: 1.8;
-            color: #666;
-            margin: 0;
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .concept-grid {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-            h1 { font-size: 1.2rem; }
-            .details-section { width: 85%; }
-            button { width: 100%; }
+        /* Mobile Specifics */
+        @media (max-width: 480px) {
+            .hero-image { height: 35vh; }
+            .info-block { padding: 60px 25px; }
+            .info-block p { font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-content">
-        <h1>The Middle Third</h1>
+    <div class="hero-image"></div>
 
-        <div class="email-div">
-            <form id="email-form" action="https://formspree.io/f/mojjjbrb" method="POST">
-                <input type="email" name="email" placeholder="EMAIL ADDRESS" required>
-                <button type="submit" id="submit-btn">Join the Community</button>
-            </form>
-            
-            <div id="success-message">
-                YOU'RE ON THE LIST FOR THE UPCOMING EVENT.
-            </div>
+    <div class="logo-container">
+        <img src="logo.png" alt="The Middle Third Logo">
+    </div>
+
+    <div class="main-content">
+        <form id="email-form" action="https://formspree.io/f/mojjjbrb" method="POST">
+            <input type="email" name="email" placeholder="ENTER EMAIL ADDRESS" required>
+            <button type="submit" id="submit-btn">Join the Community</button>
+        </form>
+        
+        <div id="success-message">
+            YOU'RE ON THE LIST.<br>
+            WE WILL NOTIFY YOU OF THE FIRST EVENT SOON.
         </div>
     </div>
 
-    <div class="details-section">
-        <h2>Concept Summary</h2>
+    <div class="concept-section">
         
-        <div class="concept-grid">
-            <div class="grid-item">
-                <h3>The Space</h3>
-                <p>A distraction-free, cinema-style environment in Madrid featuring reserved seating and immersive audio.</p>
-            </div>
-            <div class="grid-item">
-                <h3>The Atmosphere</h3>
-                <p>The energy of the stadium with the comfort of a lounge. A curated, mixed-fan community where the match takes center stage.</p>
-            </div>
-            <div class="grid-item">
-                <h3>The Membership</h3>
-                <p>Join as a founding member for priority access to our first viewing event in late March.</p>
-            </div>
-        </div>
-
-        <div style="margin-top: 60px; border-top: 1px solid #eee; padding-top: 30px;">
-            <p style="font-size: 0.7rem; color: #999; letter-spacing: 0.05em;">
-                Keep an eye out for emails from <i>themiddlethirdmadrid</i> for further information.
+        <div class="info-block">
+            <h3>The Space</h3>
+            <p>
+                <strong>Cinema standards. Stadium energy.</strong><br>
+                A distraction-free, cinema-style environment in Madrid featuring reserved seating and immersive audio. Designed for absolute focus on the pitch.
             </p>
         </div>
+
+        <div class="info-block">
+            <h3>The Atmosphere</h3>
+            <p>
+                <strong>A collective standard of respect.</strong><br>
+                The stadium roar, minus the chaos. A curated, mixed-fan environment where the game is the protagonist and every supporter is welcome.
+            </p>
+        </div>
+
+        <div class="info-block">
+            <h3>The Membership</h3>
+            <p>
+                <strong>Founding access starts here.</strong><br>
+                Join the community to secure priority for our late March debut. Membership is limited to those who value the game as much as we do.
+            </p>
+        </div>
+
     </div>
 
     <script>
@@ -211,6 +222,5 @@
             }
         };
     </script>
-
 </body>
 </html>
