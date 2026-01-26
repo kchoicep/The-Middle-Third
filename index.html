@@ -60,10 +60,12 @@
             margin-bottom: 25px;
             text-transform: uppercase;
             border-radius: 0;
+            background: transparent;
+            color: #000;
         }
 
         button {
-            background: none;
+            background-color: transparent;
             border: 1px solid #000;
             padding: 12px 24px;
             font-size: 0.75rem;
@@ -73,6 +75,9 @@
             transition: all 0.3s ease;
             white-space: nowrap;
             display: inline-block;
+            color: #000; /* Force black text */
+            -webkit-appearance: none; /* Removes default iOS styling */
+            border-radius: 0;
         }
 
         button:hover {
@@ -80,13 +85,13 @@
             color: #fff;
         }
 
-        /* Success Message Box (Reference Image Style) */
+        /* Success Message Box */
         #success-message {
-            display: none; /* Hidden by default */
+            display: none;
             border: 1px solid #000;
             padding: 20px;
             margin-top: 20px;
-            font-family: "Courier New", Courier, monospace; /* Monospace for the "typewriter" look in reference */
+            font-family: "Courier New", Courier, monospace;
             font-size: 0.9rem;
             color: #000;
             line-height: 1.5;
@@ -116,7 +121,11 @@
         @media (max-width: 480px) {
             h1 { font-size: 1.1rem; letter-spacing: 0.2em; }
             .details-section { width: 85%; padding: 40px 0; }
-            button { width: 100%; letter-spacing: 0.1em; }
+            button { 
+                width: 100%; 
+                letter-spacing: 0.1em;
+                display: block; /* Ensures it renders correctly in the flex flow */
+            }
         }
     </style>
 </head>
@@ -164,8 +173,8 @@
             });
 
             if (response.ok) {
-                form.style.display = 'none'; // Hide the form
-                successMessage.style.display = 'block'; // Show the success box
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
             } else {
                 alert("Oops! There was a problem. Please try again.");
                 submitBtn.innerText = "JOIN THE COMMUNITY";
@@ -175,4 +184,3 @@
 
 </body>
 </html>
-
