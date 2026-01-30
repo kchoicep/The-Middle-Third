@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Middle Third</title>
     <style>
-        /* 1. THE CANVAS: Pure White & Reset */
+        /* 1. THE CANVAS */
         body, html {
             background-color: #FFFFFF;
             color: #000000;
@@ -19,7 +19,7 @@
             align-items: center; 
         }
 
-        /* 2. THE STAGE: Responsive Container */
+        /* 2. THE STAGE */
         .container {
             width: 90%;
             max-width: 800px; 
@@ -34,11 +34,11 @@
         /* 3. TYPOGRAPHY & LAYOUT */
         h1 {
             font-family: 'Courier New', Courier, monospace;
-            font-size: 2.5rem; /* Increased size as requested */
+            font-size: 2.5rem;
             letter-spacing: 4px;
             text-transform: uppercase;
             margin-bottom: 3rem;
-            font-weight: normal;
+            font-weight: normal; /* Keeps it thin */
             color: #000000;
         }
 
@@ -119,7 +119,7 @@
         /* Success Message Style */
         #success-message {
             display: none;
-            color: #28a745; /* Green */
+            color: #28a745;
             font-family: 'Courier New', Courier, monospace;
             font-size: 1.1rem;
             text-transform: uppercase;
@@ -139,6 +139,7 @@
             border-top: 1px solid #ddd;
             padding-top: 3rem;
             width: 100%;
+            font-weight: normal; /* CHANGED: Now matches the H1 thin style */
         }
 
         .concept-grid {
@@ -156,6 +157,7 @@
             letter-spacing: 1px;
             margin-bottom: 1rem;
             color: #000000;
+            font-weight: bold; /* Subheads stay bold for contrast */
         }
 
         .grid-item p {
@@ -191,7 +193,7 @@
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
-            h1 { font-size: 1.8rem; } /* Scaled down slightly for mobile */
+            h1 { font-size: 1.8rem; }
             .container {
                 padding-top: 20px;
             }
@@ -210,6 +212,10 @@
                 <div id="form-inputs">
                     <input type="email" name="EMAIL" placeholder="Enter Email Address" required>
                     
+                    <div hidden="">
+                        <input type="hidden" name="tags" value="4895519">
+                    </div>
+
                     <div style="position: absolute; left: -5000px;" aria-hidden="true">
                         <input type="text" name="b_9e95604a210cd0794a5c5c266_6f39babc9a" tabindex="-1" value="">
                     </div>
