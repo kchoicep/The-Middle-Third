@@ -203,9 +203,11 @@
             font-style: italic;
             font-size: 0.85rem;
             color: #666;
-            margin-top: 4rem;
-            margin-bottom: 1rem;
+            /* FIX: Centering logic added below */
+            text-align: center;
+            margin: 4rem auto 1rem auto; /* auto left/right margins to center the box itself */
             max-width: 600px;
+            width: 100%; /* Ensures it respects the container width on small screens */
         }
 
         .status {
