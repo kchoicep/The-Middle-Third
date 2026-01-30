@@ -34,8 +34,8 @@
         /* 3. TYPOGRAPHY & LAYOUT */
         h1 {
             font-family: 'Courier New', Courier, monospace;
-            font-size: 1.5rem;
-            letter-spacing: 3px;
+            font-size: 2.5rem; /* Increased size as requested */
+            letter-spacing: 4px;
             text-transform: uppercase;
             margin-bottom: 3rem;
             font-weight: normal;
@@ -47,13 +47,12 @@
             width: 100%;
             max-width: 400px;
             margin-bottom: 4rem;
-            min-height: 150px; /* Ensures space doesn't collapse when form hides */
+            min-height: 150px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        /* Wrapper for inputs to hide them easily on success */
         #form-inputs {
             display: flex;
             flex-direction: column;
@@ -119,8 +118,8 @@
 
         /* Success Message Style */
         #success-message {
-            display: none; /* Hidden by default */
-            color: #28a745; /* Green color similar to example */
+            display: none;
+            color: #28a745; /* Green */
             font-family: 'Courier New', Courier, monospace;
             font-size: 1.1rem;
             text-transform: uppercase;
@@ -168,12 +167,22 @@
         }
 
         /* Footer Metadata */
+        .footer-note {
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 4rem;
+            margin-bottom: 1rem;
+            max-width: 600px;
+        }
+
         .status {
             font-family: 'Courier New', Courier, monospace;
             font-size: 0.7rem;
             color: #888888;
-            margin-top: 4rem;
             line-height: 1.5;
+            margin-top: 1rem;
         }
 
         /* 5. MOBILE ADJUSTMENTS */
@@ -182,6 +191,7 @@
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
+            h1 { font-size: 1.8rem; } /* Scaled down slightly for mobile */
             .container {
                 padding-top: 20px;
             }
@@ -198,18 +208,18 @@
             <form id="subscribe-form" action="https://the-middle-third.us1.list-manage.com/subscribe/post?u=9e95604a210cd0794a5c5c266&amp;id=6f39babc9a&amp;f_id=00c07de2f0" method="post">
                 
                 <div id="form-inputs">
-                    <input type="email" name="EMAIL" placeholder="Join the Community" required>
+                    <input type="email" name="EMAIL" placeholder="Enter Email Address" required>
                     
                     <div style="position: absolute; left: -5000px;" aria-hidden="true">
                         <input type="text" name="b_9e95604a210cd0794a5c5c266_6f39babc9a" tabindex="-1" value="">
                     </div>
 
-                    <button type="submit" id="submit-btn">Enter</button>
+                    <button type="submit" id="submit-btn">Join the community</button>
                 </div>
             </form>
 
             <div id="success-message">
-                Thank you for subscribing!
+                We will send you an email shortly.
             </div>
         </div>
 
@@ -230,6 +240,10 @@
             </div>
         </div>
 
+        <p class="footer-note">
+            Keep an eye out for emails from themiddlethirdmadrid for further information once you’ve joined the community.
+        </p>
+
         <div class="status">
             EST. 2026<br>
             MADRID
@@ -243,30 +257,21 @@
         const submitBtn = document.getElementById('submit-btn');
 
         form.addEventListener('submit', function(e) {
-            // 1. Stop the standard form submission that reloads the page
             e.preventDefault(); 
-
-            // 2. Change button text to indicate loading
+            
             const originalText = submitBtn.innerText;
             submitBtn.innerText = "JOINING...";
             submitBtn.disabled = true;
 
-            // 3. Prepare form data
             const formData = new FormData(form);
 
-            // 4. Send data to Mailchimp using fetch
-            // Note: We use mode: 'no-cors' because Mailchimp doesn't send standard CORS headers for direct browser posts.
             fetch(form.action, {
                 method: 'POST',
                 body: formData,
                 mode: 'no-cors' 
             })
             .then(() => {
-                // 5. On completion, assume success (due to no-cors limitations)
-                // Fade out inputs
                 formInputs.style.opacity = '0';
-                
-                // Wait a moment for fade out, then hide inputs and show success message
                 setTimeout(() => {
                     formInputs.style.display = 'none';
                     successMessage.style.display = 'block';
@@ -275,7 +280,6 @@
             .catch((error) => {
                 console.error('Error:', error);
                 alert("Sorry, there was an issue joining the list. Please try again.");
-                // Reset button if it fails
                 submitBtn.innerText = originalText;
                 submitBtn.disabled = false;
             });
