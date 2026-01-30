@@ -13,58 +13,48 @@
             padding: 0;
             height: 100%;
             width: 100%;
-            font-family: Arial, sans-serif; /* Fallback */
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: center; 
         }
 
-        /* 2. THE CENTER STAGE: Responsive Container */
+        /* 2. THE STAGE: Responsive Container */
+        /* Widened to 800px to fit the 3-column grid */
         .container {
-            /* Mobile First: Take up 90% of screen */
-            width: 90%; 
-            /* Desktop Constraint: Never get wider than 500px */
-            max-width: 500px;
+            width: 90%;
+            max-width: 800px; 
             text-align: center;
-            padding: 20px;
+            padding: 40px 20px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers items horizontally */
         }
 
-        /* 3. THE TRI-FONT SYSTEM */
+        /* 3. TYPOGRAPHY & LAYOUT */
         
-        /* The "Data" Layer (Structure) */
+        /* The Header */
         h1 {
             font-family: 'Courier New', Courier, monospace;
             font-size: 1.5rem;
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             font-weight: normal;
         }
 
-        .status {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.8rem;
-            color: #666; /* Dimmed text */
-            margin-top: 4rem;
-            line-height: 1.5;
+        /* The Login Section (Kept narrow for focus) */
+        .login-wrapper {
+            width: 100%;
+            max-width: 400px; /* Constrains the form to be narrow */
+            margin-bottom: 4rem;
         }
 
-        /* The "Voice" Layer (Story) */
-        p {
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #e0e0e0;
-            margin-bottom: 2.5rem;
-        }
-
-        /* The "Utility" Layer (Action) */
         .input-group {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            align-items: center;
             width: 100%;
         }
 
@@ -74,12 +64,12 @@
             color: white;
             padding: 15px;
             width: 100%;
-            box-sizing: border-box; /* Keeps padding inside width */
+            box-sizing: border-box;
             font-family: Arial, Helvetica, sans-serif;
             text-align: center;
             outline: none;
             font-size: 1rem;
-            border-radius: 0; /* Removes iOS rounded corners */
+            border-radius: 0;
             -webkit-appearance: none;
         }
 
@@ -108,10 +98,62 @@
             background-color: #cccccc;
         }
 
-        /* Mobile Text Adjustments */
-        @media (max-width: 600px) {
-            h1 { font-size: 1.2rem; }
-            p { font-size: 1rem; }
+        /* 4. THE CONCEPT GRID (New Section) */
+        h2 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 2rem;
+            border-top: 1px solid #222;
+            padding-top: 3rem;
+            width: 100%;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 Columns */
+            gap: 30px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .grid-item h3 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .grid-item p {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #999;
+            margin: 0;
+        }
+
+        /* Footer Metadata */
+        .status {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.7rem;
+            color: #444;
+            margin-top: 4rem;
+            line-height: 1.5;
+        }
+
+        /* 5. MOBILE ADJUSTMENTS */
+        @media (max-width: 700px) {
+            .concept-grid {
+                grid-template-columns: 1fr; /* Stack vertically on phone */
+                gap: 40px;
+            }
+            .container {
+                padding-top: 20px;
+            }
         }
     </style>
 </head>
@@ -120,21 +162,35 @@
     <div class="container">
         <h1>The Middle Third</h1>
 
-        <p>
-            A distraction-free, cinema-style environment in Madrid.
-            The energy of the stadium with the comfort of a lounge.
-        </p>
+        <div class="login-wrapper">
+            <form action="https://the-middle-third.us1.list-manage.com/subscribe/post?u=9e95604a210cd0794a5c5c266&amp;id=6f39babc9a&amp;f_id=00c07de2f0" method="post" class="input-group" target="_blank">
+                
+                <input type="email" name="EMAIL" placeholder="ENTER PASSWORD / EMAIL" required>
+                
+                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                    <input type="text" name="b_9e95604a210cd0794a5c5c266_6f39babc9a" tabindex="-1" value="">
+                </div>
 
-        <form action="https://the-middle-third.us1.list-manage.com/subscribe/post?u=9e95604a210cd0794a5c5c266&amp;id=6f39babc9a&amp;f_id=00c07de2f0" method="post" class="input-group" target="_blank">
-            
-            <input type="email" name="EMAIL" placeholder="ENTER PASSWORD / EMAIL" required>
-            
-            <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                <input type="text" name="b_9e95604a210cd0794a5c5c266_6f39babc9a" tabindex="-1" value="">
+                <button type="submit">Enter</button>
+            </form>
+        </div>
+
+        <h2>Concept Summary</h2>
+        
+        <div class="concept-grid">
+            <div class="grid-item">
+                <h3>The Space</h3>
+                <p>A distraction-free, cinema-style environment in Madrid featuring reserved seating and immersive audio.</p>
             </div>
-
-            <button type="submit">Enter</button>
-        </form>
+            <div class="grid-item">
+                <h3>The Atmosphere</h3>
+                <p>The energy of the stadium with the comfort of a lounge. A curated, mixed-fan community where the match takes center stage.</p>
+            </div>
+            <div class="grid-item">
+                <h3>The Membership</h3>
+                <p>Join as a founding member for priority access to our first viewing event in late March.</p>
+            </div>
+        </div>
 
         <div class="status">
             EST. 2026<br>
