@@ -104,6 +104,8 @@
         .signup-intro {
             margin-bottom: 1.5rem;
             font-size: 0.9rem;
+            text-transform: uppercase; /* Makes "Join the Community" look more official */
+            letter-spacing: 0.05em;
         }
 
         .form-group {
@@ -173,10 +175,22 @@
         .feature-text { font-size: 0.85rem; opacity: 0.9; }
 
         footer {
-            margin-top: 4rem;
-            font-size: 0.7rem;
-            opacity: 0.5;
+            margin-top: 5rem;
+            margin-bottom: 2rem;
+            font-size: 0.75rem;
+            opacity: 0.8;
             text-align: center;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+        
+        .signature {
+            margin-top: 2rem;
+            font-family: var(--font-tactical);
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            font-weight: bold;
+            opacity: 1;
         }
 
         /* --- RESPONSIVE --- */
@@ -197,7 +211,7 @@
         <div class="lobby-header-logo">The Middle Third</div>
 
         <div class="signup-container">
-            <p class="signup-intro">Join the founding members list.</p>
+            <p class="signup-intro">Join the Community.</p>
             <form class="form-group">
                 <input type="email" placeholder="ENTER EMAIL ADDRESS" required>
                 <button type="submit" class="btn-submit">Request Access</button>
@@ -232,7 +246,11 @@
         </div>
 
         <footer>
-            © 2026 The Middle Third. Madrid.
+            Keep an eye out for emails from themiddlethirdmadrid for further information once you’ve joined the community.
+            <div class="signature">
+                EST. 2026<br>
+                MADRID
+            </div>
         </footer>
     </div>
 
