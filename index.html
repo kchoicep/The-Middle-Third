@@ -27,8 +27,9 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            overflow: hidden; /* Locked initially so user can't scroll */
+            overflow: hidden; /* Locked initially */
             font-family: var(--font-cinema);
+            transition: background-color 0.5s;
         }
 
         /* --- STATE 1: THE GATE (Overlay) --- */
@@ -44,10 +45,12 @@
             justify-content: center;
             align-items: center;
             z-index: 999;
-            transition: opacity 0.8s ease-in-out, visibility 0.8s;
+            padding: 0 2rem;
             
-            /* FIX: Added padding so text never touches the edge on mobile */
-            padding: 0 2rem; 
+            /* Transition Settings */
+            transition: opacity 0.8s ease-in-out, visibility 0.8s;
+            opacity: 1;
+            visibility: visible;
         }
 
         .gate-title {
@@ -57,7 +60,7 @@
             letter-spacing: 0.1em;
             margin-bottom: 3rem;
             text-align: center;
-            line-height: 1; /* Keeps the lines tight if it wraps */
+            line-height: 1;
         }
 
         .btn-enter {
@@ -81,14 +84,35 @@
         /* --- STATE 2: THE LOBBY (Main Content) --- */
         #lobby-screen {
             opacity: 0; /* Hidden initially */
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1.5s ease-in-out; /* Slower fade in for drama */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 4rem 2rem;
+            visibility: hidden; /* Hides it from screen readers initially */
         }
 
+        /* --- THE MAGIC SWITCH (Active State) --- */
+        /* These rules apply when JS adds the 'site-entered' class */
+        
+        body.site-entered {
+            overflow: auto; /* Unlocks scrolling */
+        }
+
+        body.site-entered #gate-screen {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none; /* Ensures you can't click the hidden button */
+        }
+
+        body.site-entered #lobby-screen {
+            opacity: 1;
+            visibility: visible;
+        }
+
+
+        /* --- REST OF DESIGN --- */
         .lobby-header-logo {
             font-family: var(--font-tactical);
             font-size: 2rem;
@@ -97,7 +121,6 @@
             text-transform: uppercase;
         }
 
-        /* Form Styling */
         .signup-container {
             width: 100%;
             max-width: 500px;
@@ -145,7 +168,6 @@
         
         .btn-submit:hover { opacity: 0.9; }
 
-        /* Concept Grid Styling */
         .concept-section {
             width: 100%;
             max-width: 1000px;
@@ -197,11 +219,8 @@
             opacity: 1;
         }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            /* FIX: Adjusted size to fit better within the new padding */
             .gate-title { font-size: 2.5rem; } 
-            
             .grid-container { grid-template-columns: 1fr; gap: 3rem; }
         }
     </style>
@@ -210,7 +229,7 @@
 
     <div id="gate-screen">
         <h1 class="gate-title">THE MIDDLE THIRD</h1>
-        <button class="btn-enter" onclick="enterSite()">ENTER</button>
+        <button id="enter-btn" class="btn-enter">ENTER</button>
     </div>
 
     <div id="lobby-screen">
@@ -252,4 +271,30 @@
         </div>
 
         <footer>
-            Keep an eye out for emails from themiddlethirdmadrid for further information once you’ve joined the community
+            Keep an eye out for emails from themiddlethirdmadrid for further information once you’ve joined the community.
+            <div class="signature">
+                EST. 2026<br>
+                MADRID
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Wait for the page to fully load
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Get the button
+            const enterButton = document.getElementById('enter-btn');
+            
+            // Add the click listener
+            enterButton.addEventListener('click', function() {
+                // Add the class 'site-entered' to the body
+                // The CSS will handle the fading and scrolling automatically
+                document.body.classList.add('site-entered');
+            });
+            
+        });
+    </script>
+
+</body>
+</html>
