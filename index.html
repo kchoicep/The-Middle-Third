@@ -3,343 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Middle Third</title>
+    <title>The Middle Third | Madrid</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Courier+Prime&display=swap" rel="stylesheet">
+
     <style>
-        /* 1. THE CANVAS */
-        body, html {
-            background-color: #FFFFFF;
-            color: #000000;
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --accent-color: #000000;
+            --font-tactical: 'Barlow Condensed', sans-serif;
+            --font-cinema: 'Courier Prime', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            width: 100%;
-            font-family: Arial, sans-serif;
-            /* FIX: Changed height:100% to min-height:100vh to allow scrolling */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
+        }
+
+        /* --- TYPOGRAPHY UTILS --- */
+        h1, h2, h3 {
+            font-family: var(--font-tactical);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.1;
+        }
+
+        p, input, button, .small-text {
+            font-family: var(--font-cinema);
+            line-height: 1.6;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            width: 100%;
+            max-width: 800px;
+            padding: 8rem 2rem 4rem 2rem;
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* 2. THE STAGE */
-        .container {
-            width: 90%;
-            max-width: 800px; 
-            text-align: center;
-            /* FIX: Added padding so content never touches the very edge */
-            padding: 60px 20px; 
-            box-sizing: border-box;
-            /* By default, we center the content vertically if it fits */
-            margin: auto 0; 
-        }
-
-        /* 3. UTILITY: Hiding/Showing Sections */
-        .hidden {
-            display: none !important;
-        }
-
-        .fade-in {
-            animation: fadeIn 0.8s ease-in forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 4. TYPOGRAPHY */
-        h1 {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 2.5rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
+        .brand-title {
+            font-size: 4rem;
+            font-weight: 800;
             margin-bottom: 3rem;
-            font-weight: normal;
-            color: #000000;
+            letter-spacing: 0.1em; /* Wide tracking for that "Stadium" look */
         }
 
-        /* 5. STATE 1: THE GATE (Enter Button) */
-        #enter-btn {
-            background-color: #000000;
-            color: #FFFFFF;
-            border: 1px solid #000000;
-            padding: 15px 40px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-            margin-top: 2rem;
-        }
-        
-        #enter-btn:hover {
-            background-color: #333;
-            border-color: #333;
-        }
-
-        /* 6. STATE 2: THE FORM */
-        .login-wrapper {
+        /* --- FORM ELEMENTS --- */
+        .signup-container {
             width: 100%;
             max-width: 400px;
-            margin: 0 auto 4rem auto; /* Centered horizontally */
-            min-height: 150px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-        }
-
-        #form-inputs {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            transition: opacity 0.3s ease;
+            gap: 1rem;
+            margin-bottom: 6rem;
         }
 
         input[type="email"] {
-            background: transparent;
-            border: 1px solid #000000;
-            color: #000000;
-            padding: 15px;
             width: 100%;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
+            padding: 1rem;
+            border: 2px solid var(--accent-color);
+            background: transparent;
+            font-size: 0.9rem;
             text-align: center;
             outline: none;
-            font-size: 1rem;
-            border-radius: 0;
-            -webkit-appearance: none;
-        }
-
-        input[type="email"]::placeholder {
-            color: #666666;
-            opacity: 1;
+            transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        button.submit-btn {
-            background-color: #000000;
-            color: #FFFFFF;
-            border: 1px solid #000000;
-            padding: 15px 30px;
-            font-family: Arial, Helvetica, sans-serif;
+        input[type="email"]:focus {
+            background-color: #f4f4f4;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--accent-color);
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            font-size: 0.9rem;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1px;
             cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        /* --- CONCEPT SECTION --- */
+        .concept-section {
             width: 100%;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            border-radius: 0;
-            -webkit-appearance: none;
+            max-width: 1000px;
+            padding: 4rem 2rem;
+            border-top: 1px solid #e0e0e0;
         }
 
-        button.submit-btn:hover {
-            background-color: #333333;
-            border-color: #333333;
-        }
-        
-        button.submit-btn:disabled {
-            background-color: #666666;
-            cursor: not-allowed;
-        }
-
-        #success-message {
-            display: none;
-            color: #28a745;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-            padding: 20px 0;
-        }
-
-        /* 7. CONCEPT GRID */
-        h2 {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #000000;
-            margin-bottom: 2rem;
-            border-top: 1px solid #ddd;
-            padding-top: 3rem;
-            width: 100%;
-            font-weight: normal;
-        }
-
-        .concept-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            width: 100%;
+        .section-label {
             text-align: center;
-        }
-
-        .grid-item h3 {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: var(--font-cinema);
             font-size: 0.8rem;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-            color: #000000;
-            font-weight: bold;
+            margin-bottom: 3rem;
+            opacity: 0.6;
         }
 
-        .grid-item p {
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #333333;
-            margin: 0;
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 Columns layout */
+            gap: 3rem;
         }
 
-        /* Footer Metadata */
-        .footer-note {
-            font-family: Georgia, serif;
-            font-style: italic;
-            font-size: 0.85rem;
-            color: #666;
-            /* FIX: Centering logic added below */
+        .feature-column {
             text-align: center;
-            margin: 4rem auto 1rem auto; /* auto left/right margins to center the box itself */
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .feature-text {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            opacity: 0.5;
             max-width: 600px;
-            width: 100%; /* Ensures it respects the container width on small screens */
+            font-family: var(--font-cinema);
+            font-style: italic;
         }
 
-        .status {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.7rem;
-            color: #888888;
-            line-height: 1.5;
-            margin-top: 1rem;
-        }
-
-        /* MOBILE ADJUSTMENTS */
-        @media (max-width: 700px) {
-            .concept-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .brand-title {
+                font-size: 2.5rem;
             }
-            h1 { font-size: 1.8rem; }
-            /* On mobile, we align to top rather than center to prevent cutoffs */
-            .container {
-                margin: 0; 
-                padding-top: 40px;
+            
+            .grid-container {
+                grid-template-columns: 1fr; /* Stack columns on mobile */
+                gap: 4rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>The Middle Third</h1>
+    <section class="hero">
+        <h1 class="brand-title">THE MIDDLE THIRD</h1>
 
-        <div id="gate-view">
-            <button id="enter-btn" onclick="enterSite()">ENTER</button>
+        <div class="signup-container">
+            <form>
+                <input type="email" placeholder="ENTER EMAIL ADDRESS" required>
+                <button type="submit" class="btn-submit">Join the Community</button>
+            </form>
         </div>
+    </section>
 
-        <div id="content-view" class="hidden">
-            
-            <div class="login-wrapper">
-                <form id="subscribe-form" action="https://the-middle-third.us1.list-manage.com/subscribe/post?u=9e95604a210cd0794a5c5c266&amp;id=6f39babc9a&amp;f_id=00c07de2f0" method="post">
-                    
-                    <div id="form-inputs">
-                        <input type="email" name="EMAIL" placeholder="Enter Email Address" required>
-                        
-                        <div hidden="">
-                            <input type="hidden" name="tags" value="4895519">
-                        </div>
-                        <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                            <input type="text" name="b_9e95604a210cd0794a5c5c266_6f39babc9a" tabindex="-1" value="">
-                        </div>
-
-                        <button type="submit" id="submit-btn" class="submit-btn">Join the community</button>
-                    </div>
-                </form>
-
-                <div id="success-message">
-                    We will send you an email shortly.
-                </div>
+    <section class="concept-section">
+        <div class="section-label">Concept Summary</div>
+        
+        <div class="grid-container">
+            <div class="feature-column">
+                <h3 class="feature-title">The Space</h3>
+                <p class="feature-text">
+                    A distraction-free, cinema-style environment in Madrid featuring reserved seating and immersive audio.
+                </p>
             </div>
 
-            <h2>Concept Summary</h2>
-            
-            <div class="concept-grid">
-                <div class="grid-item">
-                    <h3>The Space</h3>
-                    <p>A distraction-free, cinema-style environment in Madrid featuring reserved seating and immersive audio.</p>
-                </div>
-                <div class="grid-item">
-                    <h3>The Atmosphere</h3>
-                    <p>The energy of the stadium with the comfort of a lounge. A curated, mixed-fan community where the match takes center stage.</p>
-                </div>
-                <div class="grid-item">
-                    <h3>The Membership</h3>
-                    <p>Join as a founding member for priority access to our first viewing event in late March.</p>
-                </div>
+            <div class="feature-column">
+                <h3 class="feature-title">The Atmosphere</h3>
+                <p class="feature-text">
+                    The energy of the stadium with the comfort of a lounge. A curated, mixed-fan community where the match takes center stage.
+                </p>
             </div>
 
-            <p class="footer-note">
-                Keep an eye out for emails from themiddlethirdmadrid for further information once you’ve joined the community.
-            </p>
-
-            <div class="status">
-                EST. 2026<br>
-                MADRID
+            <div class="feature-column">
+                <h3 class="feature-title">The Membership</h3>
+                <p class="feature-text">
+                    Join as a founding member for priority access to our first viewing event in late March.
+                </p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <script>
-        // 1. The "Enter" Function
-        function enterSite() {
-            const gate = document.getElementById('gate-view');
-            const content = document.getElementById('content-view');
-
-            gate.style.display = 'none'; // Hide the Enter button
-            content.classList.remove('hidden'); // Reveal content
-            content.classList.add('fade-in'); // Add animation
-        }
-
-        // 2. The Form Submission Function
-        const form = document.getElementById('subscribe-form');
-        const formInputs = document.getElementById('form-inputs');
-        const successMessage = document.getElementById('success-message');
-        const submitBtn = document.getElementById('submit-btn');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); 
-            
-            const originalText = submitBtn.innerText;
-            submitBtn.innerText = "JOINING...";
-            submitBtn.disabled = true;
-
-            const formData = new FormData(form);
-
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors' 
-            })
-            .then(() => {
-                formInputs.style.opacity = '0';
-                setTimeout(() => {
-                    formInputs.style.display = 'none';
-                    successMessage.style.display = 'block';
-                }, 300);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert("Sorry, there was an issue joining the list. Please try again.");
-                submitBtn.innerText = originalText;
-                submitBtn.disabled = false;
-            });
-        });
-    </script>
+    <footer>
+        Keep an eye out for emails from themiddlethirdmadrid for further information once you've joined the community.
+    </footer>
 
 </body>
 </html>
