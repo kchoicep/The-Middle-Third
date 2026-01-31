@@ -24,13 +24,28 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory; /* This creates the "Page" snap effect */
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* --- PAGE STRUCTURE --- */
+        section {
+            height: 100vh; /* Forces each section to be exactly one full screen */
+            width: 100%;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            padding: 2rem;
+            scroll-snap-align: start; /* The snap point */
+            position: relative;
         }
 
         /* --- TYPOGRAPHY UTILS --- */
@@ -41,78 +56,85 @@
             line-height: 1.1;
         }
 
-        p, input, button, .small-text {
+        p, input, button, .small-text, a {
             font-family: var(--font-cinema);
             line-height: 1.6;
         }
 
-        /* --- HERO SECTION --- */
+        /* --- PAGE 1: HERO --- */
         .hero {
-            width: 100%;
-            max-width: 800px;
-            padding: 8rem 2rem 4rem 2rem;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .brand-title {
-            font-size: 4rem;
+            font-size: 5rem; /* Massive size for impact */
             font-weight: 800;
-            margin-bottom: 3rem;
-            letter-spacing: 0.1em; /* Wide tracking for that "Stadium" look */
+            margin-bottom: 4rem;
+            letter-spacing: 0.1em;
         }
 
-        /* --- FORM ELEMENTS --- */
         .signup-container {
             width: 100%;
             max-width: 400px;
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            margin-bottom: 6rem;
         }
 
         input[type="email"] {
             width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--accent-color);
+            padding: 1.2rem;
+            border: 3px solid var(--accent-color); /* Thicker border for "Tactical" feel */
             background: transparent;
-            font-size: 0.9rem;
+            font-size: 1rem;
             text-align: center;
             outline: none;
-            transition: all 0.3s ease;
             text-transform: uppercase;
+            font-weight: bold;
+            color: var(--accent-color);
         }
 
-        input[type="email"]:focus {
-            background-color: #f4f4f4;
+        input[type="email"]::placeholder {
+            color: var(--accent-color);
+            opacity: 0.6;
         }
 
         .btn-submit {
             width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--accent-color);
+            padding: 1.2rem;
+            border: 3px solid var(--accent-color);
             background-color: var(--accent-color);
             color: var(--bg-color);
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
-            transition: opacity 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .btn-submit:hover {
-            opacity: 0.9;
+            background-color: transparent;
+            color: var(--accent-color);
         }
 
-        /* --- CONCEPT SECTION --- */
+        /* Scroll Indicator Arrow */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            animation: bounce 2s infinite;
+            opacity: 0.5;
+            font-size: 2rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* --- PAGE 2: CONCEPT --- */
         .concept-section {
-            width: 100%;
-            max-width: 1000px;
-            padding: 4rem 2rem;
-            border-top: 1px solid #e0e0e0;
+            background-color: #f9f9f9; /* Slight contrast for the second page */
         }
 
         .section-label {
@@ -121,14 +143,17 @@
             font-size: 0.8rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            margin-bottom: 3rem;
-            opacity: 0.6;
+            margin-bottom: 4rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1rem;
+            display: inline-block;
         }
 
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 Columns layout */
-            gap: 3rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            max-width: 1200px;
         }
 
         .feature-column {
@@ -136,37 +161,41 @@
         }
 
         .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
             font-weight: 700;
         }
 
         .feature-text {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             opacity: 0.9;
         }
 
-        /* --- FOOTER --- */
         footer {
-            margin-top: auto;
-            padding: 2rem;
-            text-align: center;
-            font-size: 0.75rem;
+            position: absolute;
+            bottom: 1rem;
+            font-size: 0.7rem;
             opacity: 0.5;
-            max-width: 600px;
             font-family: var(--font-cinema);
-            font-style: italic;
+            width: 100%;
+            text-align: center;
         }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
+            section {
+                height: auto; /* Disable strict height on mobile for scrollability */
+                min-height: 100vh;
+                padding: 6rem 1.5rem;
+            }
+            
             .brand-title {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
             
             .grid-container {
-                grid-template-columns: 1fr; /* Stack columns on mobile */
-                gap: 4rem;
+                grid-template-columns: 1fr;
+                gap: 3rem;
             }
         }
     </style>
@@ -182,6 +211,8 @@
                 <button type="submit" class="btn-submit">Join the Community</button>
             </form>
         </div>
+
+        <div class="scroll-indicator">↓</div>
     </section>
 
     <section class="concept-section">
@@ -209,11 +240,11 @@
                 </p>
             </div>
         </div>
-    </section>
 
-    <footer>
-        Keep an eye out for emails from themiddlethirdmadrid for further information once you've joined the community.
-    </footer>
+        <footer>
+            © 2026 The Middle Third. Madrid.
+        </footer>
+    </section>
 
 </body>
 </html>
