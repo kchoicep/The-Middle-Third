@@ -33,9 +33,9 @@
             height: 100vh;
         }
 
-        /* --- LOGO STYLING (Lobby) --- */
+        /* --- LOGO STYLING (Lobby Only Now) --- */
         .logo-3d {
-            width: 280px; /* Reset to perfect proportion for cropped image */
+            width: 280px; 
             max-width: 70vw; 
             height: auto;
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
@@ -54,18 +54,16 @@
             opacity: 1; visibility: visible;
         }
 
-        .gate-logo-container {
+        /* Original Giant Text Styling */
+        .gate-title {
+            font-family: var(--font-tactical);
+            font-size: 5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 3rem;
             text-align: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-        }
-
-        /* --- LOGO STYLING (Entrance Gate) --- */
-        .gate-logo {
-            width: 450px; /* Reset to perfect proportion for cropped image */
-            max-width: 80vw; 
-            height: auto;
-            filter: drop-shadow(0 0 20px rgba(0,0,0,0.6));
-            margin-bottom: 3rem; 
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5); 
         }
 
         .btn-enter {
@@ -169,7 +167,7 @@
         }
 
         @media (max-width: 768px) {
-            .gate-logo { width: 300px; } 
+            .gate-title { font-size: 3rem; } 
             .grid-container { grid-template-columns: 1fr; gap: 4rem; }
             .feature-column { padding-bottom: 2rem; border-bottom: 1px solid var(--border-dim); }
             .feature-column:last-child { border-bottom: none; }
@@ -179,10 +177,7 @@
 <body>
 
     <div id="gate-screen">
-        <div class="gate-logo-container">
-            <img src="Png-01.png" alt="The Middle Third" class="gate-logo">
-        </div>
-        
+        <h1 class="gate-title">THE MIDDLE THIRD</h1>
         <button id="enter-btn" class="btn-enter">ENTER</button>
     </div>
 
