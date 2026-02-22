@@ -40,6 +40,21 @@
             height: 100vh; /* Ensures gradient fills screen */
         }
 
+        /* --- LOGO STYLING --- */
+        .logo-3d {
+            width: 200px; /* Adjust size as needed */
+            height: auto;
+            margin-bottom: 2rem;
+            /* Subtle shadow to make it float in the dark space */
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+            transition: transform 0.3s ease;
+        }
+        
+        /* Optional: Hover effect for the logo */
+        .logo-3d:hover {
+            transform: translateY(-5px);
+        }
+
         /* --- STATE 1: THE GATE (Overlay) --- */
         #gate-screen {
             position: fixed;
@@ -60,16 +75,17 @@
             visibility: visible;
         }
 
-        .gate-title {
-            font-family: var(--font-tactical);
-            font-size: 5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 3rem;
+        /* Replaced .gate-title with .gate-logo-container */
+        .gate-logo-container {
+            margin-bottom: 2rem;
             text-align: center;
-            line-height: 1;
-            /* Subtle texture/depth to text */
-            text-shadow: 0 0 20px rgba(0,0,0,0.5); 
+        }
+
+        .gate-logo {
+            width: 280px; /* Larger logo for the entrance */
+            max-width: 80vw;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.6));
         }
 
         .btn-enter {
@@ -83,6 +99,7 @@
             cursor: pointer;
             letter-spacing: 0.2em;
             transition: all 0.3s ease;
+            margin-top: 1rem;
         }
 
         .btn-enter:hover {
@@ -125,12 +142,8 @@
 
         /* --- REST OF DESIGN --- */
         .lobby-header-logo {
-            font-family: var(--font-tactical);
-            font-size: 2rem;
             margin-bottom: 4rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            opacity: 0.9;
+            text-align: center;
         }
 
         .signup-container {
@@ -288,7 +301,7 @@
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .gate-title { font-size: 3rem; } 
+            .gate-logo { width: 220px; } 
             .grid-container { grid-template-columns: 1fr; gap: 4rem; }
             .feature-column { padding-bottom: 2rem; border-bottom: 1px solid var(--border-dim); }
             .feature-column:last-child { border-bottom: none; }
@@ -298,12 +311,16 @@
 <body>
 
     <div id="gate-screen">
-        <h1 class="gate-title">THE MIDDLE THIRD</h1>
+        <div class="gate-logo-container">
+            <img src="image_17.png" alt="The Middle Third" class="gate-logo">
+        </div>
         <button id="enter-btn" class="btn-enter">ENTER</button>
     </div>
 
     <div id="lobby-screen">
-        <div class="lobby-header-logo">The Middle Third</div>
+        <div class="lobby-header-logo">
+            <img src="logo.png" alt="The Middle Third" class="logo-3d">
+        </div>
 
         <div class="signup-container">
             <p class="signup-intro">Join the Community</p>
