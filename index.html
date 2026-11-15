@@ -11,7 +11,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Courier+Prime&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -19,11 +19,13 @@
             --bg-vignette: #2a2a2a;
             --text-color: #fffff0;
             --text-dim: rgba(255, 255, 240, 0.85);
+            --text-soft: rgba(255, 255, 240, 0.6);
             --border-dim: rgba(255, 255, 240, 0.3);
+            --border-faint: rgba(255, 255, 240, 0.14);
             --accent-color: #65000b;
             --accent-glow: rgba(101, 0, 11, 0.6);
-            --font-tactical: 'Barlow Condensed', sans-serif;
-            --font-cinema: 'Courier Prime', monospace;
+            --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+            --font-body: 'Jost', 'Helvetica Neue', Arial, sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,230 +37,285 @@
             background-attachment: fixed;
             color: var(--text-color);
             overflow: hidden;
-            font-family: var(--font-cinema);
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 17px;
+            line-height: 1.7;
             height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Soft film grain over everything, for the vintage feel */
+        body::before {
+            content: ""; position: fixed; inset: 0; z-index: 1000; pointer-events: none; opacity: 0.07;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
         a { color: var(--text-color); }
-        a:focus-visible, button:focus-visible, input:focus-visible {
-            outline: 2px solid var(--text-color);
-            outline-offset: 3px;
+        a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+            outline: 1px solid var(--text-color);
+            outline-offset: 4px;
         }
+        em { font-style: italic; }
 
-        /* --- LOGO STYLING --- */
-        .logo-3d {
-            width: 280px;
-            max-width: 70vw;
-            height: auto;
-            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
-            transition: transform 0.3s ease;
+        /* ---------- Shared type ---------- */
+        .label {
+            font-family: var(--font-body); font-size: 0.72rem; font-weight: 500;
+            letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-soft);
         }
-        .logo-3d:hover { transform: translateY(-5px); }
+        h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; }
+        h2 { font-size: clamp(2rem, 4.4vw, 3.1rem); line-height: 1.12; }
+        h3 { font-size: 1.45rem; line-height: 1.2; }
+        p, li { color: var(--text-dim); }
+        .rule { width: 56px; height: 5px; border-top: 1px solid currentColor; border-bottom: 1px solid currentColor; opacity: 0.55; }
 
-        /* --- STATE 1: THE GATE (unchanged) --- */
+        /* ---------- STATE 1: THE GATE ---------- */
         #gate-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            z-index: 999; padding: 0 2rem;
+            z-index: 999; padding: 0 2rem; text-align: center;
             transition: opacity 0.8s ease-in-out, visibility 0.8s;
             opacity: 1; visibility: visible;
         }
-
+        .gate-whisper { margin-bottom: 1.8rem; }
         .gate-title {
-            font-family: var(--font-tactical);
-            font-size: 5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 3rem;
-            text-align: center;
+            font-size: clamp(3rem, 9vw, 6.2rem);
             line-height: 1;
-            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+            margin-bottom: 2.8rem;
+            text-shadow: 0 0 24px rgba(0,0,0,0.5);
         }
-
         .btn-enter {
-            font-family: var(--font-tactical);
+            font-family: var(--font-body); font-weight: 500;
             background: transparent;
             color: var(--text-color);
-            border: 1px solid var(--text-color);
-            padding: 1rem 3rem;
-            font-size: 1.2rem;
+            border: 1px solid var(--border-dim);
+            padding: 0.95rem 3.2rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             cursor: pointer;
-            letter-spacing: 0.2em;
-            transition: all 0.3s ease;
-            display: block;
+            letter-spacing: 0.4em;
+            transition: all 0.4s ease;
         }
-
         .btn-enter:hover {
             background-color: var(--text-color);
             color: var(--bg-color);
-            box-shadow: 0 0 15px rgba(255, 255, 240, 0.3);
+            border-color: var(--text-color);
         }
+        .gate-foot { position: absolute; bottom: 2.2rem; left: 0; right: 0; }
 
-        /* --- STATE 2: THE LOBBY (redesigned content) --- */
+        /* ---------- STATE 2: THE LOBBY ---------- */
         #lobby-screen {
             opacity: 0; transition: opacity 1.5s ease-in-out;
             min-height: 100vh;
             visibility: hidden;
         }
-
         body.site-entered { overflow: auto; height: auto; }
         body.site-entered #gate-screen { opacity: 0; visibility: hidden; pointer-events: none; }
         body.site-entered #lobby-screen { opacity: 1; visibility: visible; }
 
-        .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+        .wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 2rem; }
 
         /* Header */
-        .site-header { border-bottom: 1px solid var(--border-dim); }
         .site-header .wrap {
-            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-            gap: 1rem; padding-top: 1.2rem; padding-bottom: 1.2rem;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 1rem; padding-top: 1.6rem; padding-bottom: 1.6rem;
         }
-        .brand {
-            font-family: var(--font-tactical); font-weight: 800; font-size: 1.5rem;
-            letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+        .brand { font-family: var(--font-display); font-size: 1.25rem; text-decoration: none; }
+        .site-nav { display: flex; align-items: center; gap: 2rem; }
+        .nav-link {
+            text-decoration: none; font-size: 0.72rem; font-weight: 500;
+            letter-spacing: 0.26em; text-transform: uppercase; color: var(--text-soft);
+            transition: color 0.3s;
         }
-        .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 1.6rem; }
-        .site-nav a {
-            text-decoration: none; font-family: var(--font-tactical); font-size: 1.05rem;
-            letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+        .nav-link:hover { color: var(--text-color); }
+        .nav-cta {
+            text-decoration: none; font-size: 0.72rem; font-weight: 500;
+            letter-spacing: 0.26em; text-transform: uppercase;
+            border: 1px solid var(--border-dim); padding: 0.75rem 1.2rem; transition: all 0.3s;
         }
-        .site-nav a:hover { color: var(--text-color); }
+        .nav-cta:hover { background: var(--text-color); color: var(--bg-color); }
 
-        /* Buttons */
+        /* Buttons and links */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
-            min-height: 48px; padding: 0.9rem 2rem;
-            font-family: var(--font-tactical); font-size: 1.1rem; font-weight: 600;
-            letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
-            cursor: pointer; transition: all 0.3s ease;
+            min-height: 50px; padding: 0.9rem 2.2rem;
+            font-family: var(--font-body); font-size: 0.78rem; font-weight: 500;
+            letter-spacing: 0.28em; text-transform: uppercase; text-decoration: none;
+            background: var(--accent-color); color: var(--text-color);
+            border: 1px solid var(--accent-color); cursor: pointer; transition: all 0.3s ease;
         }
-        .btn-accent { background: var(--accent-color); color: var(--text-color); border: 1px solid var(--accent-color); }
-        .btn-accent:hover { background: #7d000e; box-shadow: 0 0 20px var(--accent-glow); }
-        .btn-outline { background: transparent; color: var(--text-color); border: 1px solid var(--text-color); }
-        .btn-outline:hover { background: var(--text-color); color: var(--bg-color); }
-        .site-nav .btn { min-height: 44px; padding: 0.6rem 1.2rem; font-size: 1rem; color: var(--text-color); }
-
-        /* Type */
-        .label {
-            font-family: var(--font-cinema); font-size: 0.8rem; letter-spacing: 0.3em;
-            text-transform: uppercase; color: var(--text-dim);
+        .btn:hover { background: #7d000e; box-shadow: 0 0 22px var(--accent-glow); }
+        .arrow-link {
+            font-size: 0.78rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase;
+            text-decoration: none; padding: 0.9rem 0.2rem; display: inline-flex; align-items: center; gap: 0.6rem;
         }
-        h1, h2, h3 { font-family: var(--font-tactical); text-transform: uppercase; line-height: 1.02; }
-        h2 { font-size: clamp(2.3rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: 0.04em; }
-        h3 { font-size: 1.6rem; font-weight: 600; letter-spacing: 0.05em; }
-        p, li, dd { font-size: 1rem; line-height: 1.75; color: var(--text-dim); }
+        .arrow-link span { transition: transform 0.3s ease; }
+        .arrow-link:hover span { transform: translateX(5px); }
 
         /* Hero */
-        .hero .wrap { padding-top: 4.5rem; padding-bottom: 5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.6rem; }
-        .hero h1 { font-size: clamp(3rem, 8vw, 5.6rem); font-weight: 800; letter-spacing: 0.04em; max-width: 900px; }
-        .hero .lead { font-size: 1.1rem; max-width: 620px; }
-        .btn-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 0.6rem; }
-        .signature-line {
-            margin-top: 1.6rem; font-family: var(--font-tactical); font-size: 1rem;
-            letter-spacing: 0.2em; font-weight: 600; text-transform: uppercase; color: var(--text-color);
+        .hero { position: relative; overflow: hidden; }
+        .pitch-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+        .pitch-lines * { fill: none; stroke: rgba(255, 255, 240, 0.06); stroke-width: 1.2; }
+        .pitch-lines .third-fill { fill: rgba(255, 255, 240, 0.02); stroke: none; }
+        .pitch-lines .third-line { stroke: rgba(101, 0, 11, 0.55); stroke-width: 1.6; }
+        .hero .wrap {
+            position: relative; padding-top: 4.5rem; padding-bottom: 6.5rem;
+            display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.7rem;
         }
+        .logo-3d {
+            width: 150px; max-width: 45vw; height: auto;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+        }
+        .hero h1 { font-size: clamp(2.7rem, 7.2vw, 5.4rem); line-height: 1.04; max-width: 820px; }
+        .hero .lead { font-size: 1.1rem; max-width: 500px; }
+        .cta-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem 2rem; margin-top: 0.4rem; }
+        .leagues { margin-top: 1.6rem; }
 
         /* Sections */
         section { scroll-margin-top: 1rem; }
-        .block .wrap { padding-top: 5rem; padding-bottom: 5rem; }
-        .bordered { border-top: 1px solid var(--border-dim); }
-        .panel { background: transparent; }
-        .section-head { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem; }
-
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
-        .step { display: flex; flex-direction: column; gap: 0.7rem; }
-        .step-num { font-family: var(--font-cinema); font-size: 0.85rem; letter-spacing: 0.2em; color: var(--text-dim); }
-
-        .split { display: flex; flex-wrap: wrap; gap: 3rem; }
+        .block .wrap { padding-top: 6.5rem; padding-bottom: 6.5rem; }
+        .section-head { display: flex; flex-direction: column; gap: 1.1rem; margin-bottom: 3.4rem; max-width: 620px; }
+        .split { display: flex; flex-wrap: wrap; gap: 3.5rem; }
         .split > * { flex: 1 1 340px; min-width: 0; }
-        .stack { display: flex; flex-direction: column; gap: 1rem; }
+        .stack { display: flex; flex-direction: column; gap: 1.2rem; }
+        .narrow { max-width: 440px; }
 
-        .timeline { list-style: none; }
-        .timeline li { display: flex; gap: 1.4rem; padding: 1rem 0; border-bottom: 1px solid var(--border-dim); }
-        .timeline li:last-child { border-bottom: 0; }
+        /* Ivory sections */
+        .light {
+            background: var(--text-color); color: var(--bg-color);
+            --ink-dim: rgba(33, 33, 33, 0.78);
+            --ink-soft: rgba(33, 33, 33, 0.55);
+            --ink-border: rgba(33, 33, 33, 0.18);
+        }
+        .light p, .light li { color: var(--ink-dim); }
+        .light .label { color: var(--ink-soft); }
+        .light a { color: var(--bg-color); }
+
+        /* How it works */
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--ink-border); }
+        .step { padding: 2.2rem 2rem 0.4rem 0; display: flex; flex-direction: column; gap: 0.8rem; }
+        .step + .step { padding-left: 2rem; border-left: 1px solid var(--ink-border); }
+        .step-num { font-family: var(--font-display); font-style: italic; font-size: 1rem; color: var(--accent-color); }
+
+        /* The night */
+        .timeline { list-style: none; border-top: 1px solid var(--border-faint); }
+        .timeline li { display: flex; gap: 1.6rem; padding: 1.15rem 0; border-bottom: 1px solid var(--border-faint); align-items: baseline; }
         .timeline strong {
-            min-width: 7rem; font-family: var(--font-tactical); font-size: 1.15rem; font-weight: 600;
-            letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-color);
+            flex: none; width: 6.2rem; font-family: var(--font-display); font-style: italic;
+            font-weight: 400; font-size: 1.1rem; color: var(--text-color); font-variant-numeric: tabular-nums;
         }
 
-        .big-text { font-size: 1.15rem; max-width: 760px; }
+        /* Burgundy band */
+        .band { background: var(--accent-color); text-align: center; position: relative; overflow: hidden; }
+        .band::before {
+            content: ""; position: absolute; left: 50%; top: 50%;
+            width: 540px; height: 540px; margin: -270px 0 0 -270px;
+            border: 1px solid rgba(255, 255, 240, 0.1); border-radius: 50%;
+        }
+        .band .wrap { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.6rem; }
+        .band blockquote {
+            font-family: var(--font-display); font-style: italic; font-weight: 400;
+            font-size: clamp(1.8rem, 4.2vw, 3rem); line-height: 1.2; max-width: 760px;
+        }
+        .band p { max-width: 560px; }
 
-        /* Founding member form (Mailchimp) */
-        .perks { padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.3rem; }
-        .form-group { display: flex; flex-direction: column; gap: 1.1rem; width: 100%; transition: opacity 0.5s; }
-        .field { display: flex; flex-direction: column; gap: 0.4rem; text-align: left; }
-        .field label { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); }
+        /* Founding member pass (Mailchimp form) */
+        .perks { list-style: none; display: flex; flex-direction: column; }
+        .perks li { padding: 0.75rem 0; border-bottom: 1px solid var(--border-faint); }
+        .perks li:first-child { border-top: 1px solid var(--border-faint); }
+        .pass { border: 1px solid var(--border-dim); padding: 2rem; position: relative; background: rgba(255, 255, 240, 0.02); }
+        .pass-head {
+            display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+            padding-bottom: 1.1rem; margin-bottom: 1.6rem; border-bottom: 1px dashed var(--border-dim);
+        }
+        .pass-head strong { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 1.3rem; }
+        .pass::before, .pass::after {
+            content: ""; position: absolute; top: 3.9rem; width: 18px; height: 18px;
+            border-radius: 50%; background: var(--bg-color); border: 1px solid var(--border-dim);
+        }
+        .pass::before { left: -10px; clip-path: inset(0 0 0 50%); }
+        .pass::after { right: -10px; clip-path: inset(0 50% 0 0); }
+
+        .form-group { display: flex; flex-direction: column; gap: 1.2rem; width: 100%; transition: opacity 0.5s; }
+        .field { display: flex; flex-direction: column; gap: 0.35rem; text-align: left; }
+        .field label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: var(--text-soft); }
         .field input {
-            width: 100%; padding: 1rem 1.1rem; min-height: 48px;
-            border: 1px solid var(--text-color); background: transparent; color: var(--text-color);
-            font-family: var(--font-cinema); font-size: 0.95rem; outline: none; transition: border-color 0.3s;
+            width: 100%; min-height: 46px; padding: 0.5rem 0;
+            border: 0; border-bottom: 1px solid var(--border-dim); border-radius: 0;
+            background: transparent; color: var(--text-color);
+            font-family: var(--font-body); font-size: 1.02rem; outline: none; transition: border-color 0.3s;
         }
-        .field input:focus { border-color: var(--text-dim); background: rgba(255,255,240, 0.05); }
-        .field input::placeholder { color: var(--text-dim); opacity: 0.5; }
-        .field-row { display: flex; flex-wrap: wrap; gap: 1.1rem; }
-        .field-row .field { flex: 1 1 180px; }
-        .consent { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.85rem; line-height: 1.6; color: var(--text-dim); text-align: left; }
-        .consent input { width: 20px; height: 20px; margin-top: 2px; flex: none; accent-color: var(--accent-color); }
-
-        .btn-submit {
-            width: 100%; padding: 1.2rem; border: none; min-height: 48px;
-            background-color: var(--accent-color); color: var(--text-color);
-            font-family: var(--font-tactical); font-size: 1.1rem;
-            letter-spacing: 0.1em; font-weight: bold; text-transform: uppercase;
-            cursor: pointer; transition: all 0.3s;
-        }
-        .btn-submit:hover { background-color: #7d000e; box-shadow: 0 0 20px var(--accent-glow); }
+        .field input:focus { border-bottom-color: var(--text-color); }
+        .field input::placeholder { color: var(--text-soft); opacity: 0.6; }
+        .field-row { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+        .field-row .field { flex: 1 1 170px; }
+        .consent { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.86rem; line-height: 1.55; color: var(--text-soft); text-align: left; margin-top: 0.3rem; }
+        .consent input { width: 18px; height: 18px; margin-top: 3px; flex: none; accent-color: var(--accent-color); }
+        .btn-submit { width: 100%; margin-top: 0.4rem; }
         .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-        .form-error { font-size: 0.85rem; color: var(--text-color); min-height: 1.4em; }
-        .form-note { font-size: 0.85rem; }
-
+        .form-error { font-size: 0.86rem; color: var(--text-color); min-height: 1.4em; }
+        .form-note { font-size: 0.86rem; }
         #success-message {
-            display: none; font-family: var(--font-cinema); font-size: 0.9rem;
-            color: var(--text-color); text-align: center; padding: 2rem;
-            border: 1px solid var(--accent-color); background: rgba(101, 0, 11, 0.1);
+            display: none; font-family: var(--font-display); font-style: italic; font-size: 1.3rem; line-height: 1.4;
+            color: var(--text-color); text-align: center; padding: 2.4rem 1rem;
         }
 
-        .venue-mail {
-            align-self: flex-start; font-family: var(--font-cinema); text-decoration: none;
-            border-bottom: 1px solid var(--accent-color); padding-bottom: 2px;
-        }
+        /* Venues */
+        .venue-mail { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; }
 
-        .faq div { padding: 1.1rem 0; border-bottom: 1px solid var(--border-dim); }
-        .faq div:last-child { border-bottom: 0; }
-        .faq dt { font-family: var(--font-tactical); font-size: 1.25rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
-        .faq dd { margin-top: 0.3rem; }
-
-        footer { border-top: 1px solid var(--border-dim); text-align: center; }
-        footer .wrap { padding-top: 3.5rem; padding-bottom: 3rem; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; }
-        .socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.4rem; font-size: 0.9rem; }
-        .socials a { color: var(--text-dim); }
-        .signature {
-            font-family: var(--font-tactical); font-size: 1rem; letter-spacing: 0.2em;
-            font-weight: bold; color: var(--text-color);
+        /* FAQ */
+        .faq { border-top: 1px solid var(--border-faint); }
+        .faq details { border-bottom: 1px solid var(--border-faint); }
+        .faq summary {
+            list-style: none; cursor: pointer; padding: 1.25rem 0; display: flex; justify-content: space-between; gap: 1rem;
+            font-family: var(--font-display); font-size: 1.2rem;
         }
+        .faq summary::-webkit-details-marker { display: none; }
+        .faq summary::after { content: "+"; font-family: var(--font-body); font-weight: 300; font-size: 1.4rem; line-height: 1; color: var(--text-soft); transition: transform 0.3s; }
+        .faq details[open] summary::after { transform: rotate(45deg); }
+        .faq details p { padding: 0 2rem 1.4rem 0; }
+
+        /* Footer */
+        footer { border-top: 1px solid var(--border-faint); text-align: center; }
+        footer .wrap { padding-top: 4rem; padding-bottom: 3.4rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .footer-mark { font-family: var(--font-display); font-size: 1.5rem; }
+        .socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.8rem; }
+        .socials a { text-decoration: none; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-soft); transition: color 0.3s; }
+        .socials a:hover { color: var(--text-color); }
+
+        /* Gentle reveal on scroll (only when scripts run) */
+        .js-reveal .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.9s ease, transform 0.9s ease; }
+        .js-reveal .reveal.is-in { opacity: 1; transform: none; }
 
         @media (max-width: 768px) {
-            .gate-title { font-size: 3rem; }
-            .grid-3 { grid-template-columns: 1fr; gap: 2.5rem; }
-            .block .wrap { padding-top: 3.5rem; padding-bottom: 3.5rem; }
-            .timeline li { flex-direction: column; gap: 0.2rem; }
-            .wrap { padding: 0 1.25rem; }
+            body { font-size: 16px; }
+            .nav-link { display: none; }
+            .grid-3 { grid-template-columns: 1fr; }
+            .step { padding: 1.8rem 0; }
+            .step + .step { padding-left: 0; border-left: 0; border-top: 1px solid var(--ink-border); }
+            .block .wrap { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+            .hero .wrap { padding-top: 3rem; padding-bottom: 4.5rem; }
+            .wrap { padding: 0 1.4rem; }
+            .timeline strong { width: 5.2rem; }
+            .pass { padding: 1.5rem; }
         }
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             #gate-screen, #lobby-screen { transition: none; }
+            .js-reveal .reveal { opacity: 1; transform: none; transition: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===================== THE GATE (unchanged) ===================== -->
+    <!-- ===================== THE GATE ===================== -->
     <div id="gate-screen">
-        <h1 class="gate-title">THE MIDDLE THIRD</h1>
-        <button id="enter-btn" class="btn-enter">ENTER</button>
+        <p class="label gate-whisper">Madrid · By reservation</p>
+        <h1 class="gate-title">The <em>Middle</em> Third</h1>
+        <button id="enter-btn" class="btn-enter">Enter</button>
+        <p class="label gate-foot">Est. 2026</p>
     </div>
 
     <!-- ===================== THE LOBBY ===================== -->
@@ -266,97 +323,110 @@
 
         <header class="site-header">
             <div class="wrap">
-                <a class="brand" href="#top">The Middle Third</a>
+                <a class="brand" href="#top">The <em>Middle</em> Third</a>
                 <nav class="site-nav" aria-label="Main">
-                    <a href="#how">How it works</a>
-                    <a href="#faq">FAQ</a>
-                    <a href="#venues">For venues</a>
-                    <a class="btn btn-accent" href="#join">Join the list</a>
+                    <a class="nav-link" href="#how">How it works</a>
+                    <a class="nav-link" href="#venues">For venues</a>
+                    <a class="nav-link" href="#faq">Questions</a>
+                    <a class="nav-cta" href="#join">Join the list</a>
                 </nav>
             </div>
         </header>
 
         <main>
             <section class="hero" id="top">
+                <svg class="pitch-lines" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                    <rect class="third-fill" x="433" y="60" width="334" height="580"/>
+                    <rect x="100" y="60" width="1000" height="580"/>
+                    <line x1="600" y1="60" x2="600" y2="640"/>
+                    <circle cx="600" cy="350" r="90"/>
+                    <rect x="100" y="210" width="150" height="280"/>
+                    <rect x="950" y="210" width="150" height="280"/>
+                    <line class="third-line" x1="433" y1="60" x2="433" y2="640"/>
+                    <line class="third-line" x1="767" y1="60" x2="767" y2="640"/>
+                </svg>
                 <div class="wrap">
                     <img src="Png-01.png" alt="The Middle Third" class="logo-3d">
-                    <div class="label">Madrid · Champions League nights</div>
-                    <h1>Big matches. Small rooms. Your people.</h1>
-                    <p class="lead">A weekly Champions League pop-up in Madrid. 20 to 30 fans, reserved seats at a partner cafe, food served to your table, and the same crowd every week.</p>
-                    <div class="btn-row">
-                        <a class="btn btn-accent" href="#join">Become a founding member</a>
-                        <a class="btn btn-outline" href="#how">How it works</a>
+                    <p class="label">A matchday pop-up · Madrid</p>
+                    <h1>Big matches. Small rooms. <em>Your people.</em></h1>
+                    <p class="lead">A reserved seat for the Champions League, in a room of twenty to thirty. Food comes to your table. The same faces come back every week.</p>
+                    <div class="cta-row">
+                        <a class="btn" href="#join">Request a seat</a>
+                        <a class="arrow-link" href="#how">How it works <span aria-hidden="true">&rarr;</span></a>
                     </div>
-                    <div class="signature-line">Phones down. The game is on.</div>
+                    <p class="label leagues">Champions League · LaLiga · Premier League</p>
                 </div>
             </section>
 
-            <section class="block bordered" id="how">
+            <section class="block light" id="how">
                 <div class="wrap">
-                    <div class="section-head">
-                        <div class="label">01 · How it works</div>
-                        <h2>Three steps to your seat</h2>
+                    <div class="section-head reveal">
+                        <p class="label">How it works</p>
+                        <h2>Three steps to <em>your seat</em></h2>
                     </div>
-                    <div class="grid-3">
+                    <div class="grid-3 reveal">
                         <div class="step">
-                            <div class="step-num">01</div>
-                            <h3>Reserve your seat</h3>
-                            <p>Book ahead online. Your reservation counts toward your food and drink.</p>
+                            <div class="step-num">No. 01</div>
+                            <h3>Reserve</h3>
+                            <p>Book ahead. Your reservation counts toward your food and drink. You never pay to watch.</p>
                         </div>
                         <div class="step">
-                            <div class="step-num">02</div>
+                            <div class="step-num">No. 02</div>
                             <h3>Watch together</h3>
                             <p>A partner cafe in central Madrid, a big screen, good food and a host who knows your name.</p>
                         </div>
                         <div class="step">
-                            <div class="step-num">03</div>
-                            <h3>Come back next week</h3>
+                            <div class="step-num">No. 03</div>
+                            <h3>Come back</h3>
                             <p>Same night, same faces, a new match. That's how a crowd becomes a club.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="block bordered panel">
+            <section class="block">
                 <div class="wrap split">
-                    <div class="stack">
-                        <div class="label">02 · The night</div>
-                        <h2>A night at The Middle Third</h2>
+                    <div class="stack narrow reveal">
+                        <p class="label">The night</p>
+                        <h2>Phones down. <em>The game is on.</em></h2>
+                        <div class="rule"></div>
                         <p>Built for watching with people, not screens. Paper cards, real conversation, and a room that goes quiet when the ball is in the box.</p>
                     </div>
-                    <ul class="timeline">
-                        <li><strong>20:30</strong><span>Doors open. Your table, a printed matchday programme and a prediction card.</span></li>
+                    <ul class="timeline reveal">
+                        <li><strong>20:30</strong><span>Doors. Your table, a printed programme and a prediction card.</span></li>
                         <li><strong>21:00</strong><span>Lights down, cinema style. Kickoff.</span></li>
-                        <li><strong>Halftime</strong><span>Trivia on the big screen and fan of the week.</span></li>
-                        <li><strong>Full time</strong><span>Man-of-the-match vote and a prize for the best prediction.</span></li>
-                        <li><strong>Every night</strong><span>Kit night: wear your club's shirt.</span></li>
+                        <li><strong>Halftime</strong><span>Trivia on the big screen. Fan of the week.</span></li>
+                        <li><strong>Full time</strong><span>Man of the match, and a prize for the best prediction.</span></li>
+                        <li><strong>Always</strong><span>Kit night. Wear your club's shirt.</span></li>
                     </ul>
                 </div>
             </section>
 
-            <section class="block bordered">
-                <div class="wrap stack">
-                    <div class="label">03 · Who it's for</div>
-                    <h2>Everyone with a club</h2>
-                    <p class="big-text">Football fans in Madrid, whether you've just arrived or grew up around the corner. An English-speaking crowd watching the Spanish broadcast, with fans of both teams welcome. Come alone or bring your team.</p>
+            <section class="block band">
+                <div class="wrap reveal">
+                    <p class="label">Who it's for</p>
+                    <blockquote>&ldquo;The bar is too crowded. Home is too quiet. This is the space in between.&rdquo;</blockquote>
+                    <div class="rule"></div>
+                    <p>For football people in Madrid, whether you've just arrived or grew up around the corner. Fans of both teams welcome. Come alone or bring your team.</p>
                 </div>
             </section>
 
-            <section class="block bordered panel" id="join">
+            <section class="block" id="join">
                 <div class="wrap split">
-                    <div class="stack">
-                        <div class="label">04 · Founding members</div>
-                        <h2>Join the community</h2>
-                        <p>Be first to hear about our Champions League knockout-phase nights.</p>
+                    <div class="stack narrow reveal">
+                        <p class="label">Founding members</p>
+                        <h2>Be among <em>the first</em></h2>
+                        <p>We open during the Champions League knockout phase. Members hear first.</p>
                         <ul class="perks">
                             <li>Early access to reservations</li>
                             <li>A bring-a-friend offer</li>
                             <li>A vote on which matches we show</li>
-                            <li>Your name on our Founders' Wall when we open a place of our own</li>
+                            <li>Your name on the Founders' Wall, when we open a place of our own</li>
                         </ul>
                     </div>
 
-                    <div>
+                    <div class="pass reveal">
+                        <div class="pass-head"><strong>Founding Member Pass</strong><span class="label">Admit one</span></div>
                         <form id="subscribe-form" class="form-group" action="https://the-middle-third.us1.list-manage.com/subscribe/post?u=9e95604a210cd0794a5c5c266&amp;id=6f39babc9a&amp;f_id=00c07de2f0" method="post">
                             <div class="field">
                                 <label for="f-name">Name</label>
@@ -382,67 +452,99 @@
                             </div>
                             <div hidden=""><input type="hidden" name="tags" value="4895519"></div>
                             <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9e95604a210cd0794a5c5c266_6f39babc9a" tabindex="-1" value=""></div>
-                            <button type="submit" id="submit-btn" class="btn-submit">REQUEST ACCESS</button>
+                            <button type="submit" id="submit-btn" class="btn btn-submit">Request access</button>
                             <p class="form-error" id="form-error" role="alert"></p>
                             <!-- SURVEY LINK: when your Google Form is live, delete the comment markers around the next line and replace SURVEY_LINK with the form's link -->
                             <!-- <p class="form-note">Help us shape it: <a href="SURVEY_LINK" target="_blank" rel="noopener">take our 4-minute survey</a>.</p> -->
                         </form>
 
-                        <div id="success-message" role="status">YOU ARE ON THE LIST.<br>WATCH YOUR INBOX.</div>
+                        <div id="success-message" role="status">You are on the list.<br>Watch your inbox.</div>
                     </div>
                 </div>
             </section>
 
-            <section class="block bordered" id="venues">
+            <section class="block light" id="venues">
                 <div class="wrap split">
-                    <div class="stack">
-                        <div class="label">05 · For venues</div>
-                        <h2>Run a cafe or restaurant in Madrid?</h2>
+                    <div class="stack reveal">
+                        <p class="label">For venues</p>
+                        <h2>Run a cafe or restaurant <em>in Madrid?</em></h2>
                     </div>
-                    <div class="stack">
-                        <p>We bring a pre-booked group to your quietest night. You serve the food and drink; we handle the screen, the hosting and the crowd.</p>
+                    <div class="stack reveal">
+                        <p>We bring a pre-booked group to your quietest night. You serve the food and drink. We handle the screen, the hosting and the crowd.</p>
                         <a class="venue-mail" href="mailto:themiddlethirdmadrid@gmail.com">themiddlethirdmadrid@gmail.com</a>
                     </div>
                 </div>
             </section>
 
-            <section class="block bordered" id="faq">
+            <section class="block" id="faq">
                 <div class="wrap split">
-                    <div class="stack">
-                        <div class="label">06 · FAQ</div>
-                        <h2>Questions</h2>
+                    <div class="stack reveal">
+                        <p class="label">Questions</p>
+                        <h2>Good to <em>know</em></h2>
                     </div>
-                    <dl class="faq">
-                        <div><dt>Do I pay to watch?</dt><dd>No. You make a small reservation that counts toward your food and drink.</dd></div>
-                        <div><dt>Where is it?</dt><dd>We're a pop-up for now. Match nights take place at a partner venue in central Madrid, announced to members first. A place of our own comes later.</dd></div>
-                        <div><dt>When?</dt><dd>During the Champions League knockout phase, one match a week to start.</dd></div>
-                        <div><dt>Can I bring a group?</dt><dd>Yes. Teams and friend groups can reserve tables together.</dd></div>
-                        <div><dt>What language is the commentary?</dt><dd>The standard Spanish broadcast. The crowd is international and everyone is welcome.</dd></div>
-                    </dl>
+                    <div class="faq reveal">
+                        <details open>
+                            <summary>Do I pay to watch?</summary>
+                            <p>No. You make a small reservation that counts toward your food and drink.</p>
+                        </details>
+                        <details>
+                            <summary>Where is it?</summary>
+                            <p>We're a pop-up for now. Match nights take place at a partner venue in central Madrid, announced to members first. A place of our own comes later.</p>
+                        </details>
+                        <details>
+                            <summary>When?</summary>
+                            <p>During the Champions League knockout phase, one match a week to start.</p>
+                        </details>
+                        <details>
+                            <summary>Can I bring a group?</summary>
+                            <p>Yes. Teams and friend groups can reserve tables together.</p>
+                        </details>
+                        <details>
+                            <summary>What language is the commentary?</summary>
+                            <p>The standard Spanish broadcast. The crowd is international and everyone is welcome.</p>
+                        </details>
+                    </div>
                 </div>
             </section>
         </main>
 
         <footer>
             <div class="wrap">
+                <div class="footer-mark">The <em>Middle</em> Third</div>
                 <div class="socials">
-                    <a href="https://www.instagram.com/themiddlethird_/" target="_blank" rel="noopener">Instagram @themiddlethird_</a>
-                    <a href="https://www.tiktok.com/@themiddlethird_" target="_blank" rel="noopener">TikTok @themiddlethird_</a>
-                    <a href="mailto:themiddlethirdmadrid@gmail.com">themiddlethirdmadrid@gmail.com</a>
+                    <a href="https://www.instagram.com/themiddlethird_/" target="_blank" rel="noopener">Instagram</a>
+                    <a href="https://www.tiktok.com/@themiddlethird_" target="_blank" rel="noopener">TikTok</a>
+                    <a href="mailto:themiddlethirdmadrid@gmail.com">Email</a>
                 </div>
-                <div class="signature">EST. 2026<br>MADRID</div>
+                <p class="label">Est. 2026 · Madrid</p>
             </div>
         </footer>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // The gate
             const enterButton = document.getElementById('enter-btn');
             enterButton.addEventListener('click', function() {
                 document.body.classList.add('site-entered');
                 window.scrollTo(0, 0);
             });
 
+            // Gentle reveal on scroll
+            if ('IntersectionObserver' in window) {
+                document.documentElement.classList.add('js-reveal');
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-in');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+            }
+
+            // Mailchimp sign-up
             const form = document.getElementById('subscribe-form');
             const successMessage = document.getElementById('success-message');
             const submitBtn = document.getElementById('submit-btn');
@@ -452,7 +554,7 @@
                 e.preventDefault();
                 formError.textContent = '';
                 const originalText = submitBtn.innerText;
-                submitBtn.innerText = "PROCESSING...";
+                submitBtn.innerText = "Processing...";
                 submitBtn.disabled = true;
 
                 const formData = new FormData(form);
