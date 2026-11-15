@@ -4,50 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Middle Third | Madrid</title>
-    
-    <meta name="description" content='The Middle Third is a live event brand dedicated to creating the ultimate "Third Space" for football culture in Madrid. We bridge the gap between the chaotic, uncomfortable experience of a local bar and the inaccessible, expensive experience of a live stadium. Our mission is to engineer high-fidelity, community-driven viewing experiences that honor the passion of the game.'>
-    
+
+    <meta name="description" content="Weekly Champions League pop-up nights in Madrid: reserved seats, small crowds, food served to your table. Join the founding member list.">
+
     <meta name="google-site-verification" content="-03kPGIS-jshj9luBapWZ2bpT7DJvC-ipBEGScuuvDE" />
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Courier+Prime&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #212121;       
-            --bg-vignette: #2a2a2a;    
-            --text-color: #fffff0;     
-            --text-dim: rgba(255, 255, 240, 0.85); 
-            --border-dim: rgba(255, 255, 240, 0.3); 
-            --accent-color: #65000b;   
+            --bg-color: #212121;
+            --bg-vignette: #2a2a2a;
+            --text-color: #fffff0;
+            --text-dim: rgba(255, 255, 240, 0.85);
+            --border-dim: rgba(255, 255, 240, 0.3);
+            --accent-color: #65000b;
             --accent-glow: rgba(101, 0, 11, 0.6);
             --font-tactical: 'Barlow Condensed', sans-serif;
             --font-cinema: 'Courier Prime', monospace;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
             background: radial-gradient(circle at center, var(--bg-vignette) 0%, var(--bg-color) 100%);
             background-color: var(--bg-color);
+            background-attachment: fixed;
             color: var(--text-color);
             overflow: hidden;
             font-family: var(--font-cinema);
             height: 100vh;
         }
 
-        /* --- LOGO STYLING (Lobby Only Now) --- */
+        a { color: var(--text-color); }
+        a:focus-visible, button:focus-visible, input:focus-visible {
+            outline: 2px solid var(--text-color);
+            outline-offset: 3px;
+        }
+
+        /* --- LOGO STYLING --- */
         .logo-3d {
-            width: 280px; 
-            max-width: 70vw; 
+            width: 280px;
+            max-width: 70vw;
             height: auto;
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
             transition: transform 0.3s ease;
         }
         .logo-3d:hover { transform: translateY(-5px); }
 
-        /* --- STATE 1: THE GATE (Overlay) --- */
+        /* --- STATE 1: THE GATE (unchanged) --- */
         #gate-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
@@ -58,7 +66,6 @@
             opacity: 1; visibility: visible;
         }
 
-        /* Original Giant Text Styling */
         .gate-title {
             font-family: var(--font-tactical);
             font-size: 5rem;
@@ -67,7 +74,7 @@
             margin-bottom: 3rem;
             text-align: center;
             line-height: 1;
-            text-shadow: 0 0 20px rgba(0,0,0,0.5); 
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
         .btn-enter {
@@ -81,7 +88,7 @@
             cursor: pointer;
             letter-spacing: 0.2em;
             transition: all 0.3s ease;
-            display: block; 
+            display: block;
         }
 
         .btn-enter:hover {
@@ -90,47 +97,114 @@
             box-shadow: 0 0 15px rgba(255, 255, 240, 0.3);
         }
 
-        /* --- STATE 2: THE LOBBY (Main Content) --- */
+        /* --- STATE 2: THE LOBBY (redesigned content) --- */
         #lobby-screen {
-            opacity: 0; transition: opacity 1.5s ease-in-out; 
+            opacity: 0; transition: opacity 1.5s ease-in-out;
             min-height: 100vh;
-            display: flex; flex-direction: column; align-items: center;
-            padding: 4rem 2rem;
-            visibility: hidden; overflow-y: auto;
+            visibility: hidden;
         }
 
         body.site-entered { overflow: auto; height: auto; }
         body.site-entered #gate-screen { opacity: 0; visibility: hidden; pointer-events: none; }
         body.site-entered #lobby-screen { opacity: 1; visibility: visible; }
 
-        /* --- REST OF DESIGN --- */
-        .lobby-header-logo { 
-            margin-top: 2rem;
-            margin-bottom: 2.5rem; 
-            text-align: center; 
+        .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+
+        /* Header */
+        .site-header { border-bottom: 1px solid var(--border-dim); }
+        .site-header .wrap {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            gap: 1rem; padding-top: 1.2rem; padding-bottom: 1.2rem;
+        }
+        .brand {
+            font-family: var(--font-tactical); font-weight: 800; font-size: 1.5rem;
+            letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+        }
+        .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 1.6rem; }
+        .site-nav a {
+            text-decoration: none; font-family: var(--font-tactical); font-size: 1.05rem;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+        }
+        .site-nav a:hover { color: var(--text-color); }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-height: 48px; padding: 0.9rem 2rem;
+            font-family: var(--font-tactical); font-size: 1.1rem; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-accent { background: var(--accent-color); color: var(--text-color); border: 1px solid var(--accent-color); }
+        .btn-accent:hover { background: #7d000e; box-shadow: 0 0 20px var(--accent-glow); }
+        .btn-outline { background: transparent; color: var(--text-color); border: 1px solid var(--text-color); }
+        .btn-outline:hover { background: var(--text-color); color: var(--bg-color); }
+        .site-nav .btn { min-height: 44px; padding: 0.6rem 1.2rem; font-size: 1rem; color: var(--text-color); }
+
+        /* Type */
+        .label {
+            font-family: var(--font-cinema); font-size: 0.8rem; letter-spacing: 0.3em;
+            text-transform: uppercase; color: var(--text-dim);
+        }
+        h1, h2, h3 { font-family: var(--font-tactical); text-transform: uppercase; line-height: 1.02; }
+        h2 { font-size: clamp(2.3rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: 0.04em; }
+        h3 { font-size: 1.6rem; font-weight: 600; letter-spacing: 0.05em; }
+        p, li, dd { font-size: 1rem; line-height: 1.75; color: var(--text-dim); }
+
+        /* Hero */
+        .hero .wrap { padding-top: 4.5rem; padding-bottom: 5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.6rem; }
+        .hero h1 { font-size: clamp(3rem, 8vw, 5.6rem); font-weight: 800; letter-spacing: 0.04em; max-width: 900px; }
+        .hero .lead { font-size: 1.1rem; max-width: 620px; }
+        .btn-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 0.6rem; }
+        .signature-line {
+            margin-top: 1.6rem; font-family: var(--font-tactical); font-size: 1rem;
+            letter-spacing: 0.2em; font-weight: 600; text-transform: uppercase; color: var(--text-color);
         }
 
-        .signup-container {
-            width: 100%; max-width: 500px; margin-bottom: 6rem;
-            text-align: center; min-height: 150px; 
-            display: flex; flex-direction: column; justify-content: center;
+        /* Sections */
+        section { scroll-margin-top: 1rem; }
+        .block .wrap { padding-top: 5rem; padding-bottom: 5rem; }
+        .bordered { border-top: 1px solid var(--border-dim); }
+        .panel { background: transparent; }
+        .section-head { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem; }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+        .step { display: flex; flex-direction: column; gap: 0.7rem; }
+        .step-num { font-family: var(--font-cinema); font-size: 0.85rem; letter-spacing: 0.2em; color: var(--text-dim); }
+
+        .split { display: flex; flex-wrap: wrap; gap: 3rem; }
+        .split > * { flex: 1 1 340px; min-width: 0; }
+        .stack { display: flex; flex-direction: column; gap: 1rem; }
+
+        .timeline { list-style: none; }
+        .timeline li { display: flex; gap: 1.4rem; padding: 1rem 0; border-bottom: 1px solid var(--border-dim); }
+        .timeline li:last-child { border-bottom: 0; }
+        .timeline strong {
+            min-width: 7rem; font-family: var(--font-tactical); font-size: 1.15rem; font-weight: 600;
+            letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-color);
         }
-        .signup-intro { margin-bottom: 1.5rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); }
-        .form-group { display: flex; flex-direction: column; gap: 1.5rem; width: 100%; transition: opacity 0.5s; }
-        
-        input[type="email"] {
-            width: 100%; padding: 1.2rem;
-            border: 1px solid var(--text-color); 
-            background: transparent; color: var(--text-color);
-            font-family: var(--font-cinema); font-size: 0.9rem;
-            text-align: center; text-transform: uppercase; outline: none;
-            transition: border-color 0.3s;
+
+        .big-text { font-size: 1.15rem; max-width: 760px; }
+
+        /* Founding member form (Mailchimp) */
+        .perks { padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.3rem; }
+        .form-group { display: flex; flex-direction: column; gap: 1.1rem; width: 100%; transition: opacity 0.5s; }
+        .field { display: flex; flex-direction: column; gap: 0.4rem; text-align: left; }
+        .field label { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); }
+        .field input {
+            width: 100%; padding: 1rem 1.1rem; min-height: 48px;
+            border: 1px solid var(--text-color); background: transparent; color: var(--text-color);
+            font-family: var(--font-cinema); font-size: 0.95rem; outline: none; transition: border-color 0.3s;
         }
-        input[type="email"]:focus { border-color: var(--text-dim); background: rgba(255,255,240, 0.05); }
-        input[type="email"]::placeholder { color: var(--text-dim); opacity: 0.5; letter-spacing: 0.1em; }
+        .field input:focus { border-color: var(--text-dim); background: rgba(255,255,240, 0.05); }
+        .field input::placeholder { color: var(--text-dim); opacity: 0.5; }
+        .field-row { display: flex; flex-wrap: wrap; gap: 1.1rem; }
+        .field-row .field { flex: 1 1 180px; }
+        .consent { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.85rem; line-height: 1.6; color: var(--text-dim); text-align: left; }
+        .consent input { width: 20px; height: 20px; margin-top: 2px; flex: none; accent-color: var(--accent-color); }
 
         .btn-submit {
-            width: 100%; padding: 1.2rem; border: none;
+            width: 100%; padding: 1.2rem; border: none; min-height: 48px;
             background-color: var(--accent-color); color: var(--text-color);
             font-family: var(--font-tactical); font-size: 1.1rem;
             letter-spacing: 0.1em; font-weight: bold; text-transform: uppercase;
@@ -138,6 +212,8 @@
         }
         .btn-submit:hover { background-color: #7d000e; box-shadow: 0 0 20px var(--accent-glow); }
         .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+        .form-error { font-size: 0.85rem; color: var(--text-color); min-height: 1.4em; }
+        .form-note { font-size: 0.85rem; }
 
         #success-message {
             display: none; font-family: var(--font-cinema); font-size: 0.9rem;
@@ -145,85 +221,217 @@
             border: 1px solid var(--accent-color); background: rgba(101, 0, 11, 0.1);
         }
 
-        .concept-section {
-            width: 100%; max-width: 1000px; border-top: 1px solid var(--border-dim); padding-top: 4rem;
+        .venue-mail {
+            align-self: flex-start; font-family: var(--font-cinema); text-decoration: none;
+            border-bottom: 1px solid var(--accent-color); padding-bottom: 2px;
         }
-        .section-label {
-            text-align: center; font-size: 1.0rem; letter-spacing: 0.3em;
-            text-transform: uppercase; margin-bottom: 4rem; color: var(--text-dim); opacity: 0.7;
-        }
-        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; }
-        .feature-column { text-align: center; }
-        .feature-title {
-            font-family: var(--font-tactical); font-size: 1.8rem; margin-bottom: 1.2rem;
-            color: var(--text-color); letter-spacing: 0.05em;
-        }
-        .feature-text { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
 
-        footer {
-            margin-top: 6rem; margin-bottom: 2rem; font-size: 1.1rem; 
-            color: var(--text-dim); text-align: center; max-width: 600px;
-            line-height: 1.8; opacity: 0.8;
-        }
+        .faq div { padding: 1.1rem 0; border-bottom: 1px solid var(--border-dim); }
+        .faq div:last-child { border-bottom: 0; }
+        .faq dt { font-family: var(--font-tactical); font-size: 1.25rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+        .faq dd { margin-top: 0.3rem; }
+
+        footer { border-top: 1px solid var(--border-dim); text-align: center; }
+        footer .wrap { padding-top: 3.5rem; padding-bottom: 3rem; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; }
+        .socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.4rem; font-size: 0.9rem; }
+        .socials a { color: var(--text-dim); }
         .signature {
-            margin-top: 2rem; font-family: var(--font-tactical);
-            font-size: 1rem; letter-spacing: 0.2em; font-weight: bold; color: var(--text-color);
+            font-family: var(--font-tactical); font-size: 1rem; letter-spacing: 0.2em;
+            font-weight: bold; color: var(--text-color);
         }
 
         @media (max-width: 768px) {
-            .gate-title { font-size: 3rem; } 
-            .grid-container { grid-template-columns: 1fr; gap: 4rem; }
-            .feature-column { padding-bottom: 2rem; border-bottom: 1px solid var(--border-dim); }
-            .feature-column:last-child { border-bottom: none; }
+            .gate-title { font-size: 3rem; }
+            .grid-3 { grid-template-columns: 1fr; gap: 2.5rem; }
+            .block .wrap { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+            .timeline li { flex-direction: column; gap: 0.2rem; }
+            .wrap { padding: 0 1.25rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            #gate-screen, #lobby-screen { transition: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===================== THE GATE (unchanged) ===================== -->
     <div id="gate-screen">
         <h1 class="gate-title">THE MIDDLE THIRD</h1>
         <button id="enter-btn" class="btn-enter">ENTER</button>
     </div>
 
+    <!-- ===================== THE LOBBY ===================== -->
     <div id="lobby-screen">
-        <div class="lobby-header-logo">
-            <img src="Png-01.png" alt="The Middle Third" class="logo-3d">
-        </div>
 
-        <div class="signup-container">
-            <p class="signup-intro">Join the Community</p>
-            
-            <form id="subscribe-form" class="form-group" action="https://the-middle-third.us1.list-manage.com/subscribe/post?u=9e95604a210cd0794a5c5c266&amp;id=6f39babc9a&amp;f_id=00c07de2f0" method="post">
-                <input type="email" name="EMAIL" placeholder="ENTER EMAIL ADDRESS" required>
-                <div hidden=""><input type="hidden" name="tags" value="4895519"></div>
-                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9e95604a210cd0794a5c5c266_6f39babc9a" tabindex="-1" value=""></div>
-                <button type="submit" id="submit-btn" class="btn-submit">REQUEST ACCESS</button>
-            </form>
-
-            <div id="success-message">YOU ARE ON THE LIST.<br>WATCH YOUR INBOX.</div>
-        </div>
-
-        <div class="concept-section">
-            <div class="section-label">Concept Summary</div>
-            <div class="grid-container">
-                <div class="feature-column">
-                    <h3 class="feature-title">THE SPACE</h3>
-                    <p class="feature-text">A distraction-free, cinema-style environment in Madrid featuring reserved seating and immersive audio.</p>
-                </div>
-                <div class="feature-column">
-                    <h3 class="feature-title">THE ATMOSPHERE</h3>
-                    <p class="feature-text">The energy of the stadium with the comfort of a lounge. A curated, mixed-fan community where the match takes center stage.</p>
-                </div>
-                <div class="feature-column">
-                    <h3 class="feature-title">THE MEMBERSHIP</h3>
-                    <p class="feature-text">Join as a founding member for priority access to the first private viewing event in late May.</p>
-                </div>
+        <header class="site-header">
+            <div class="wrap">
+                <a class="brand" href="#top">The Middle Third</a>
+                <nav class="site-nav" aria-label="Main">
+                    <a href="#how">How it works</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#venues">For venues</a>
+                    <a class="btn btn-accent" href="#join">Join the list</a>
+                </nav>
             </div>
-        </div>
+        </header>
+
+        <main>
+            <section class="hero" id="top">
+                <div class="wrap">
+                    <img src="Png-01.png" alt="The Middle Third" class="logo-3d">
+                    <div class="label">Madrid · Champions League nights</div>
+                    <h1>Big matches. Small rooms. Your people.</h1>
+                    <p class="lead">A weekly Champions League pop-up in Madrid. 20 to 30 fans, reserved seats at a partner cafe, food served to your table, and the same crowd every week.</p>
+                    <div class="btn-row">
+                        <a class="btn btn-accent" href="#join">Become a founding member</a>
+                        <a class="btn btn-outline" href="#how">How it works</a>
+                    </div>
+                    <div class="signature-line">Phones down. The game is on.</div>
+                </div>
+            </section>
+
+            <section class="block bordered" id="how">
+                <div class="wrap">
+                    <div class="section-head">
+                        <div class="label">01 · How it works</div>
+                        <h2>Three steps to your seat</h2>
+                    </div>
+                    <div class="grid-3">
+                        <div class="step">
+                            <div class="step-num">01</div>
+                            <h3>Reserve your seat</h3>
+                            <p>Book ahead online. Your reservation counts toward your food and drink.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">02</div>
+                            <h3>Watch together</h3>
+                            <p>A partner cafe in central Madrid, a big screen, good food and a host who knows your name.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">03</div>
+                            <h3>Come back next week</h3>
+                            <p>Same night, same faces, a new match. That's how a crowd becomes a club.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block bordered panel">
+                <div class="wrap split">
+                    <div class="stack">
+                        <div class="label">02 · The night</div>
+                        <h2>A night at The Middle Third</h2>
+                        <p>Built for watching with people, not screens. Paper cards, real conversation, and a room that goes quiet when the ball is in the box.</p>
+                    </div>
+                    <ul class="timeline">
+                        <li><strong>20:30</strong><span>Doors open. Your table, a printed matchday programme and a prediction card.</span></li>
+                        <li><strong>21:00</strong><span>Lights down, cinema style. Kickoff.</span></li>
+                        <li><strong>Halftime</strong><span>Trivia on the big screen and fan of the week.</span></li>
+                        <li><strong>Full time</strong><span>Man-of-the-match vote and a prize for the best prediction.</span></li>
+                        <li><strong>Every night</strong><span>Kit night: wear your club's shirt.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="block bordered">
+                <div class="wrap stack">
+                    <div class="label">03 · Who it's for</div>
+                    <h2>Everyone with a club</h2>
+                    <p class="big-text">Football fans in Madrid, whether you've just arrived or grew up around the corner. An English-speaking crowd watching the Spanish broadcast, with fans of both teams welcome. Come alone or bring your team.</p>
+                </div>
+            </section>
+
+            <section class="block bordered panel" id="join">
+                <div class="wrap split">
+                    <div class="stack">
+                        <div class="label">04 · Founding members</div>
+                        <h2>Join the community</h2>
+                        <p>Be first to hear about our Champions League knockout-phase nights.</p>
+                        <ul class="perks">
+                            <li>Early access to reservations</li>
+                            <li>A bring-a-friend offer</li>
+                            <li>A vote on which matches we show</li>
+                            <li>Your name on our Founders' Wall when we open a place of our own</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <form id="subscribe-form" class="form-group" action="https://the-middle-third.us1.list-manage.com/subscribe/post?u=9e95604a210cd0794a5c5c266&amp;id=6f39babc9a&amp;f_id=00c07de2f0" method="post">
+                            <div class="field">
+                                <label for="f-name">Name</label>
+                                <input id="f-name" type="text" name="FNAME" autocomplete="given-name" placeholder="Your name">
+                            </div>
+                            <div class="field">
+                                <label for="f-email">Email</label>
+                                <input id="f-email" type="email" name="EMAIL" autocomplete="email" placeholder="you@email.com" required>
+                            </div>
+                            <div class="field-row">
+                                <div class="field">
+                                    <label for="f-club">Club you support</label>
+                                    <input id="f-club" type="text" name="CLUB" placeholder="Your club">
+                                </div>
+                                <div class="field">
+                                    <label for="f-phone">WhatsApp (optional)</label>
+                                    <input id="f-phone" type="tel" name="PHONE" autocomplete="tel" placeholder="+34">
+                                </div>
+                            </div>
+                            <div class="consent">
+                                <input id="f-consent" type="checkbox" required>
+                                <label for="f-consent">I agree that The Middle Third may contact me about events. I can unsubscribe at any time.</label>
+                            </div>
+                            <div hidden=""><input type="hidden" name="tags" value="4895519"></div>
+                            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9e95604a210cd0794a5c5c266_6f39babc9a" tabindex="-1" value=""></div>
+                            <button type="submit" id="submit-btn" class="btn-submit">REQUEST ACCESS</button>
+                            <p class="form-error" id="form-error" role="alert"></p>
+                            <!-- SURVEY LINK: when your Google Form is live, delete the comment markers around the next line and replace SURVEY_LINK with the form's link -->
+                            <!-- <p class="form-note">Help us shape it: <a href="SURVEY_LINK" target="_blank" rel="noopener">take our 4-minute survey</a>.</p> -->
+                        </form>
+
+                        <div id="success-message" role="status">YOU ARE ON THE LIST.<br>WATCH YOUR INBOX.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block bordered" id="venues">
+                <div class="wrap split">
+                    <div class="stack">
+                        <div class="label">05 · For venues</div>
+                        <h2>Run a cafe or restaurant in Madrid?</h2>
+                    </div>
+                    <div class="stack">
+                        <p>We bring a pre-booked group to your quietest night. You serve the food and drink; we handle the screen, the hosting and the crowd.</p>
+                        <a class="venue-mail" href="mailto:themiddlethirdmadrid@gmail.com">themiddlethirdmadrid@gmail.com</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block bordered" id="faq">
+                <div class="wrap split">
+                    <div class="stack">
+                        <div class="label">06 · FAQ</div>
+                        <h2>Questions</h2>
+                    </div>
+                    <dl class="faq">
+                        <div><dt>Do I pay to watch?</dt><dd>No. You make a small reservation that counts toward your food and drink.</dd></div>
+                        <div><dt>Where is it?</dt><dd>We're a pop-up for now. Match nights take place at a partner venue in central Madrid, announced to members first. A place of our own comes later.</dd></div>
+                        <div><dt>When?</dt><dd>During the Champions League knockout phase, one match a week to start.</dd></div>
+                        <div><dt>Can I bring a group?</dt><dd>Yes. Teams and friend groups can reserve tables together.</dd></div>
+                        <div><dt>What language is the commentary?</dt><dd>The standard Spanish broadcast. The crowd is international and everyone is welcome.</dd></div>
+                    </dl>
+                </div>
+            </section>
+        </main>
 
         <footer>
-            Football, Reimagined For The Big Screen.
-            <div class="signature">EST. 2026<br>MADRID</div>
+            <div class="wrap">
+                <div class="socials">
+                    <a href="https://www.instagram.com/themiddlethird_/" target="_blank" rel="noopener">Instagram @themiddlethird_</a>
+                    <a href="https://www.tiktok.com/@themiddlethird_" target="_blank" rel="noopener">TikTok @themiddlethird_</a>
+                    <a href="mailto:themiddlethirdmadrid@gmail.com">themiddlethirdmadrid@gmail.com</a>
+                </div>
+                <div class="signature">EST. 2026<br>MADRID</div>
+            </div>
         </footer>
     </div>
 
@@ -232,14 +440,17 @@
             const enterButton = document.getElementById('enter-btn');
             enterButton.addEventListener('click', function() {
                 document.body.classList.add('site-entered');
+                window.scrollTo(0, 0);
             });
 
             const form = document.getElementById('subscribe-form');
             const successMessage = document.getElementById('success-message');
             const submitBtn = document.getElementById('submit-btn');
+            const formError = document.getElementById('form-error');
 
             form.addEventListener('submit', function(e) {
-                e.preventDefault(); 
+                e.preventDefault();
+                formError.textContent = '';
                 const originalText = submitBtn.innerText;
                 submitBtn.innerText = "PROCESSING...";
                 submitBtn.disabled = true;
@@ -252,7 +463,7 @@
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    alert("Issue connecting to the list. Please try again.");
+                    formError.textContent = "Issue connecting to the list. Please try again.";
                     submitBtn.innerText = originalText;
                     submitBtn.disabled = false;
                 });
