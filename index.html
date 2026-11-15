@@ -156,10 +156,6 @@
 
         /* Hero */
         .hero { position: relative; overflow: hidden; }
-        .pitch-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-        .pitch-lines * { fill: none; stroke: rgba(255, 255, 240, 0.06); stroke-width: 1.2; }
-        .pitch-lines .third-fill { fill: rgba(255, 255, 240, 0.02); stroke: none; }
-        .pitch-lines .third-line { stroke: rgba(101, 0, 11, 0.55); stroke-width: 1.6; }
         .hero .wrap {
             position: relative; padding-top: 4.5rem; padding-bottom: 6.5rem;
             display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.7rem;
@@ -181,6 +177,58 @@
         .split > * { flex: 1 1 340px; min-width: 0; }
         .stack { display: flex; flex-direction: column; gap: 1.2rem; }
         .narrow { max-width: 440px; }
+
+        /* ---------- Section textures (palette colors only) ---------- */
+        .block .wrap, footer .wrap { position: relative; z-index: 1; }
+        /* Hero and footer: halftone print dots that fade toward the center */
+        .tx-halftone {
+            background-image:
+                radial-gradient(ellipse 62% 58% at 50% 46%, rgba(38, 38, 38, 0.97) 0%, rgba(38, 38, 38, 0.8) 55%, rgba(33, 33, 33, 0) 100%),
+                radial-gradient(circle, rgba(255, 255, 240, 0.13) 1px, transparent 1.6px);
+            background-size: 100% 100%, 13px 13px;
+        }
+        /* Ivory sections: aged paper */
+        .block.tx-paper {
+            background-image:
+                radial-gradient(ellipse at center, rgba(33, 33, 33, 0) 55%, rgba(33, 33, 33, 0.07) 100%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04 0.8' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.13 0 0 0 0 0.13 0 0 0 0 0.13 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23f)'/%3E%3C/svg%3E");
+            background-size: 100% 100%, 320px 320px;
+        }
+        /* Venues: the same paper, ruled like a ledger */
+        .block.tx-ledger {
+            background-image:
+                repeating-linear-gradient(0deg, rgba(33, 33, 33, 0) 0 35px, rgba(33, 33, 33, 0.07) 35px 36px),
+                radial-gradient(ellipse at center, rgba(33, 33, 33, 0) 55%, rgba(33, 33, 33, 0.07) 100%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04 0.8' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.13 0 0 0 0 0.13 0 0 0 0 0.13 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23f)'/%3E%3C/svg%3E");
+            background-size: auto, 100% 100%, 320px 320px;
+        }
+        /* The night: fine pinstripes, like a cinema curtain */
+        .block.tx-stripe {
+            background-image:
+                linear-gradient(180deg, rgba(33, 33, 33, 0.9) 0%, rgba(33, 33, 33, 0) 30%, rgba(33, 33, 33, 0) 70%, rgba(33, 33, 33, 0.9) 100%),
+                repeating-linear-gradient(90deg, rgba(255, 255, 240, 0.05) 0 1px, transparent 1px 10px);
+        }
+        /* Burgundy band: woven linen */
+        .block.tx-linen {
+            background-image:
+                radial-gradient(ellipse at center, rgba(33, 33, 33, 0) 40%, rgba(33, 33, 33, 0.35) 100%),
+                repeating-linear-gradient(45deg, rgba(33, 33, 33, 0.16) 0 1px, transparent 1px 5px),
+                repeating-linear-gradient(-45deg, rgba(255, 255, 240, 0.05) 0 1px, transparent 1px 5px);
+        }
+        /* Join: a low burgundy spotlight over a fine diagonal weave */
+        .block.tx-spot {
+            background-image:
+                radial-gradient(ellipse 60% 70% at 75% 0%, rgba(101, 0, 11, 0.38) 0%, rgba(101, 0, 11, 0) 70%),
+                repeating-linear-gradient(135deg, rgba(255, 255, 240, 0.028) 0 1px, transparent 1px 7px);
+        }
+        /* Questions: faint squared paper */
+        .block.tx-grid {
+            background-image:
+                radial-gradient(ellipse at 50% 50%, rgba(33, 33, 33, 0) 20%, rgba(33, 33, 33, 0.95) 95%),
+                linear-gradient(rgba(255, 255, 240, 0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 240, 0.045) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px, 32px 32px;
+        }
 
         /* Ivory sections */
         .light {
@@ -225,7 +273,7 @@
         .perks { list-style: none; display: flex; flex-direction: column; }
         .perks li { padding: 0.75rem 0; border-bottom: 1px solid var(--border-faint); }
         .perks li:first-child { border-top: 1px solid var(--border-faint); }
-        .pass { border: 1px solid var(--border-dim); padding: 2rem; position: relative; background: rgba(255, 255, 240, 0.02); }
+        .pass { border: 1px solid var(--border-dim); padding: 2rem; position: relative; background: var(--bg-color); }
         .pass-head {
             display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap;
             padding-bottom: 1.1rem; margin-bottom: 1.6rem; border-bottom: 1px dashed var(--border-dim);
@@ -334,17 +382,7 @@
         </header>
 
         <main>
-            <section class="hero" id="top">
-                <svg class="pitch-lines" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                    <rect class="third-fill" x="433" y="60" width="334" height="580"/>
-                    <rect x="100" y="60" width="1000" height="580"/>
-                    <line x1="600" y1="60" x2="600" y2="640"/>
-                    <circle cx="600" cy="350" r="90"/>
-                    <rect x="100" y="210" width="150" height="280"/>
-                    <rect x="950" y="210" width="150" height="280"/>
-                    <line class="third-line" x1="433" y1="60" x2="433" y2="640"/>
-                    <line class="third-line" x1="767" y1="60" x2="767" y2="640"/>
-                </svg>
+            <section class="hero tx-halftone" id="top">
                 <div class="wrap">
                     <img src="Png-01.png" alt="The Middle Third" class="logo-3d">
                     <p class="label">A matchday pop-up · Madrid</p>
@@ -358,7 +396,7 @@
                 </div>
             </section>
 
-            <section class="block light" id="how">
+            <section class="block light tx-paper" id="how">
                 <div class="wrap">
                     <div class="section-head reveal">
                         <p class="label">How it works</p>
@@ -384,7 +422,7 @@
                 </div>
             </section>
 
-            <section class="block">
+            <section class="block tx-stripe">
                 <div class="wrap split">
                     <div class="stack narrow reveal">
                         <p class="label">The night</p>
@@ -402,7 +440,7 @@
                 </div>
             </section>
 
-            <section class="block band">
+            <section class="block band tx-linen">
                 <div class="wrap reveal">
                     <p class="label">Who it's for</p>
                     <blockquote>&ldquo;The bar is too crowded. Home is too quiet. This is the space in between.&rdquo;</blockquote>
@@ -411,7 +449,7 @@
                 </div>
             </section>
 
-            <section class="block" id="join">
+            <section class="block tx-spot" id="join">
                 <div class="wrap split">
                     <div class="stack narrow reveal">
                         <p class="label">Founding members</p>
@@ -463,7 +501,7 @@
                 </div>
             </section>
 
-            <section class="block light" id="venues">
+            <section class="block light tx-ledger" id="venues">
                 <div class="wrap split">
                     <div class="stack reveal">
                         <p class="label">For venues</p>
@@ -476,7 +514,7 @@
                 </div>
             </section>
 
-            <section class="block" id="faq">
+            <section class="block tx-grid" id="faq">
                 <div class="wrap split">
                     <div class="stack reveal">
                         <p class="label">Questions</p>
@@ -508,7 +546,7 @@
             </section>
         </main>
 
-        <footer>
+        <footer class="tx-halftone">
             <div class="wrap">
                 <div class="footer-mark">The <em>Middle</em> Third</div>
                 <div class="socials">
